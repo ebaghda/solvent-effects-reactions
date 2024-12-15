@@ -1,0 +1,29 @@
+# Ignore all .log files
+*.log
+
+# Ignore specific directories
+/node_modules/
+/dist/
+
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db
+
+# Ignore environment files
+.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.env
+
+# Logs and debug files
+*.log
+debug/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+tips.txt
