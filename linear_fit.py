@@ -29,9 +29,13 @@ def linear_fit(x,y,verbose):
     if verbose:
         print("Coefficients:", beta_hat)
         print("Standard Errors:", standard_errors)
+    
+    #Correlation coefficient
+    correlation_coefficient = np.corrcoef(x,y)
+    correlation_coefficient = correlation_coefficient[1][0]
 
     # flip arrays to match polynomial notation a*x^0 + b*x^1 + c*x^2...
     beta_hat = np.flip(beta_hat)
     standard_errors = np.flip(standard_errors)
 
-    return beta_hat, standard_errors
+    return beta_hat, standard_errors, correlation_coefficient

@@ -8,7 +8,6 @@ set_fig_prefs()
 #fig_dpi = 90 #set figure dpi
 
 # build ethylphenol calibration data = EP Dataframe
-
 EP = pd.DataFrame()
 EP["concentration"] = np.array([30, 15, 7.5, 3.75, 1.875, 0.9375, 0.46875, 0.046875])
 EP["EP_area"] = np.array([391.4, 195.7, 94.9, 47, 24.4, 13.9, 7.9, 3.7])
@@ -18,12 +17,10 @@ EP["RRF"] = EP["concentration"]*EP["ISTD_area"]/EP["EP_area"]/50
 
 ## generate figures
 # plot RRF vs. concentration
-
 fig, ax = plt.subplots()
 plt.scatter(EP["concentration"], EP["RRF"], s=20, c="Black")
 plt.xlabel("Ethylphenol Concentration (mM)")
 plt.ylabel("Relative Response Factor (-)")
-
 
 # plot calibration curve
 from plot_calibration_curve import plot_calibration_curve

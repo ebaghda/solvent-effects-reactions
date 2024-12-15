@@ -10,7 +10,7 @@ def plot_calibration_curve(x_data, y_data, x_label, y_label):
     
     #calculate fit error
     from linear_fit import linear_fit
-    fit_coefficients, standard_errors = linear_fit(x_data, y_data, True)
+    fit_coefficients, standard_errors, corr_coef = linear_fit(x_data, y_data, True)
     
     # generate the plot
     fig, ax = plt.subplots()
@@ -20,6 +20,6 @@ def plot_calibration_curve(x_data, y_data, x_label, y_label):
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     #plt.annotate(fit_coefs, [np.min(x_data), np.max(y_data)])
-    plt.annotate("concentration = "+ np.array2string(fit_coefficients[0], precision=2)+"±"+np.array2string(standard_errors[0], precision=2)+" + "+np.array2string(fit_coefficients[1], precision=2) +"±"+np.array2string(standard_errors[1], precision=2) +"*(peak ratio)", (np.min(x_data), np.max(y_data)))    
+    plt.annotate("concentration = "+ np.array2string(fit_coefficients[0], precision=2)+"±"+np.array2string(standard_errors[0], precision=2)+" + "+np.array2string(fit_coefficients[1], precision=2) +"±"+np.array2string(standard_errors[1], precision=2) +"*(peak ratio)\nCorrelation Coefficient:"+np.array2string(corr_coef, precision=4), (np.min(x_data), np.max(y_data)-10))
     #plt.annotate(standard_errors, [np.min(x_data), np.max(y_data)*1/3])
     plt.show()
