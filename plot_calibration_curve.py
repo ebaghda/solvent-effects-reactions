@@ -1,22 +1,25 @@
 import matplotlib.pyplot as plt
 import numpy as np
+
 def plot_calibration_curve(x_data, y_data, x_label, y_label):
 
     # perform linear fit on the data
     # calculate first degree polynomial
+    fit_coefs = np.polynomial.Polynomial.fit(x_data, y_data, deg=1,domain=[-1, 1])
+    fit_line = np.polynomial.Polynomial.linspace(fit_coefs, 2, domain=[np.min(x_data), np.max(x_data)])
     
-    z = np.polyfit(x_data, y_data, 1)
-    f = np.poly1d(z)
-    
-    # generate data for linear fit
-    x_fit = np.linspace(np.min(x_data), np.max(x_data), 2)
-    y_fit = f(x_fit)
+    #calculate fit error
+    from linear_fit import linear_fit
+    fit_coefficients, standard_errors = linear_fit(x_data, y_data, True)
     
     # generate the plot
-    fig, ax = plt.subplots(figsize=[5,5])
-    plt.scatter(x_data, y_data, s=14, c='darkred')
-    plt.plot(x_fit, y_fit, 'k')
+    fig, ax = plt.subplots()
+    plt.scatter(x_data, y_data, s=20, c='darkred')
+    plt.plot(fit_line[0], fit_line[1], 'k')
     
     plt.xlabel(x_label)
     plt.ylabel(y_label)
+    plt.annotate(fit_coefs, [np.min(x_data), np.max(y_data)])
+    plt.annotate(fit_coefficients, [np.min(x_data), np.max(y_data*2/3)])
+    plt.annotate(standard_errors, [np.min(x_data), np.max(y_data)*1/3])
     plt.show()

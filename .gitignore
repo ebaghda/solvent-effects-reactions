@@ -27,3 +27,4 @@ debug/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 tips.txt
+sandbox.py
