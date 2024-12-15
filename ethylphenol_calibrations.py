@@ -11,7 +11,7 @@ EP.peak_ratio = EP.EP_area/EP.ISTD_area
 EP.RRF = EP.concentration*EP.ISTD_area/EP.EP_area/50
 print(EP.RRF)
 
-plt.scatter(EP.concentration, EP.RRF)
+plt.scatter(EP.concentration, EP.RRF, 6)
 plt.xlabel("Ethylphenol Concentration (mM)")
 plt.ylabel("Relative Response Factor (-)")
 plt.show()
