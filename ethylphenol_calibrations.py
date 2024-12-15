@@ -18,13 +18,12 @@ EP["RRF"] = EP["concentration"]*EP["ISTD_area"]/EP["EP_area"]/50
 
 ## generate figures
 # plot RRF vs. concentration
-"""
+
 fig, ax = plt.subplots()
 plt.scatter(EP["concentration"], EP["RRF"], s=20, c="Black")
 plt.xlabel("Ethylphenol Concentration (mM)")
 plt.ylabel("Relative Response Factor (-)")
-"""
-print("UNCOMMENT RRF PLOT")
+
 
 # plot calibration curve
 from plot_calibration_curve import plot_calibration_curve
