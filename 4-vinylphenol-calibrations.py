@@ -17,11 +17,6 @@ VP["RRF"] = VP["concentration"]*VP["ISTD_area"]/VP["VP_area"]/50
 VP.to_csv(r"4-vinylphenol_calibrations.csv")
 
 ## generate figures
-# plot RRF vs. concentration
-fig, ax = plt.subplots()
-plt.scatter(VP["concentration"], VP["RRF"], s=20, c="Black")
-plt.xlabel("4-Vinylphenol Concentration (mM)")
-plt.ylabel("Relative Response Factor (-)")
 
 # plot calibration curve
 from plot_calibration_curve import plot_calibration_curve
