@@ -14,13 +14,8 @@ EP["EP_area"] = np.array([391.4, 195.7, 94.9, 47, 24.4, 13.9, 7.9, 3.7])
 EP["ISTD_area"] = np.array([368.8, 391.1, 383.8, 384.5, 368.8, 388.1, 397, 391.9])
 EP["peak_ratio"] = EP["EP_area"]/EP["ISTD_area"]
 EP["RRF"] = EP["concentration"]*EP["ISTD_area"]/EP["EP_area"]/50
-
+EP.to_csv(r'ethylphenol_calibrations.csv')
 ## generate figures
-# plot RRF vs. concentration
-fig, ax = plt.subplots()
-plt.scatter(EP["concentration"], EP["RRF"], s=20, c="Black")
-plt.xlabel("Ethylphenol Concentration (mM)")
-plt.ylabel("Relative Response Factor (-)")
 
 # plot calibration curve
 from plot_calibration_curve import plot_calibration_curve
