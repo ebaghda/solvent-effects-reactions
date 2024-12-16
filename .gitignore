@@ -26,5 +26,7 @@ debug/
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
-tips.txt
-sandbox.py
+
+#helper files
+_git_cheatsheet.txt
+_sandbox.py
