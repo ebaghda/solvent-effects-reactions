@@ -44,17 +44,17 @@ ax1[0].text(20, 17.5, "Pt\n1 mM formate")
 ax1[1].scatter(df3["time [min]"], df3["[ethylphenol] [mM]"], s=20, c="k") #select [IPA] = 20%
 ax1[1].scatter(df4["time [min]"], df4["[ethylphenol] [mM]"], s=20, c="b") #select [IPA] = 20%
 ax1[1].scatter(df5["time [min]"], df5["[ethylphenol] [mM]"], s=20, c="r") #select [IPA] = 20%
-ax1[1].text(20, 17.5, "Pt\n10 mM formate")
+ax1[1].text(19, 17.5, "Pt\n10 mM formate")
 
 ax1[2].scatter(df6["time [min]"], df6["[ethylphenol] [mM]"], s=20, c="k") #select [IPA] = 20%
 ax1[2].scatter(df7["time [min]"], df7["[ethylphenol] [mM]"], s=20, c="b") #select [IPA] = 20%
 ax1[2].scatter(df8["time [min]"], df8["[ethylphenol] [mM]"], s=20, c="r") #select [IPA] = 20%
-ax1[2].text(20, 17.5, "Pt\n100 mM formate")
+ax1[2].text(18, 17.5, "Pt\n100 mM formate")
 
 ax1[3].scatter(df9["time [min]"], df9["[ethylphenol] [mM]"], s=20, c="k") #select [IPA] = 20%
 ax1[3].scatter(df10["time [min]"], df10["[ethylphenol] [mM]"], s=20, c="b") #select [IPA] = 20%
 ax1[3].scatter(df11["time [min]"], df11["[ethylphenol] [mM]"], s=20, c="r") #select [IPA] = 20%
-ax1[3].text(20, 17.5, "Pt\n1000 mM formate")
+ax1[3].text(17, 17.5, "Pt\n1000 mM formate")
 
 for ax1 in ax1:
     ax1.set_xlabel("Time (min)")
