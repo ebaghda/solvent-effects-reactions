@@ -29,4 +29,8 @@ debug/
 
 #helper files
 _git_cheatsheet.md
+_vscode_cheatsheet.md
 _sandbox.py
+*.xlsx
+*_Data*.csv
+*.ipynb
