@@ -10,8 +10,8 @@ font.family : Arial
 font.monospace : True
 font.size : 14
 
-axes.titlesize : 12
-axes.labelsize : 16
+axes.titlesize : 14
+axes.labelsize : 15
 
 axes.titleweight : bold
 axes.labelweight : bold

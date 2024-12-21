@@ -28,9 +28,9 @@ debug/
 .ipynb_checkpoints/
 
 #helper files
-_git_cheatsheet.md
-_vscode_cheatsheet.md
-_sandbox.py
+_*.py
+_*.md
 *.xlsx
 *data*.csv
 *.ipynb
+*.parquet
