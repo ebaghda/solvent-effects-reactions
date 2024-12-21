@@ -2,10 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from linear_fit import linear_fit
-# initialize figure preferences
-from set_fig_prefs import set_fig_prefs
-set_fig_prefs()
-#fig_dpi = 90 #set figure dpi
+plt.style.use("./style/simple_bold.mplstyle") #set plot style
 
 # build 4-vinylphenol calibration data = VP Dataframe
 VP = pd.DataFrame()

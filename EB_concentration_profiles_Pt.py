@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from set_fig_prefs import set_fig_prefs
-set_fig_prefs()
+plt.style.use("./style/simple_bold.mplstyle")
 
 DF = pd.read_csv(r"vinylphenol transfer hydrogenation(data).csv", skiprows=[1,2], encoding = "latin") #import the data
 DF = DF[(DF["temperature_C"] == 75) & (DF['time_min'] <=30) & (DF.catalyst == "Pt")] #filter for temperature = 75 °C and Pt catalyst and time <= 30 min
