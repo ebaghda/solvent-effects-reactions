@@ -23,7 +23,7 @@ def plot_calibration_curve(x_data, y_data, x_label, y_label):
                  np.array2string(fit_coefficients[0], precision=2)+"±"+
                  np.array2string(standard_errors[0], precision=2)+" + "+
                  np.array2string(fit_coefficients[1], precision=2) +"±"+
-                 np.array2string(standard_errors[1], precision=2) +"*(peak ratio)\nCorrelation Coefficient:"+
+                 np.array2string(standard_errors[1], precision=2) +" * (peak ratio)\nCorrelation Coefficient: "+
                  np.array2string(corr_coef, precision=4), 
                  xy=(0.15,0.78), xycoords="figure fraction")
     plt.show()

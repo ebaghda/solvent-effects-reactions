@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 plt.style.use("./style/simple_bold.mplstyle")
 
-DF = pd.read_csv(r"vinylphenol transfer hydrogenation(data).csv", skiprows=[1,2], encoding = "latin") #import the data
+DF = pd.read_parquet(r"vinylphenol transfer hydrogenation(data).parquet") #import the data
 DF = DF[(DF["temperature_C"] == 75) & (DF['time_min'] <=30) & (DF.catalyst == "Pt")] #filter for temperature = 75 °C and Pt catalyst and time <= 30 min
 
 index = 1 #select formate concentration
@@ -59,5 +59,6 @@ for ax1 in ax1:
     ax1.set_xlim((-1.5, 31.5))
 
 plt.tight_layout()
+plt.savefig("EB_concentration_profiles_Pt_900dpi.png", dpi=900)
 plt.show()
 print("done")
