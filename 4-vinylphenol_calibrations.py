@@ -17,4 +17,5 @@ VP.to_csv(r"4-vinylphenol_calibrations.csv")
 
 # plot calibration curve
 from plot_calibration_curve import plot_calibration_curve
-plot_calibration_curve(VP["peak_ratio"], VP["concentration"], "Peak Ratio","4-Vinylphenol Concentration (mM)")
+fig, ax = plot_calibration_curve(VP["peak_ratio"], VP["concentration"], "Peak Ratio","4-Vinylphenol Concentration (mM)")
+fig.savefig("4-vinylphenol_calibrations_900dpi.png", dpi=900, bbox_inches='tight')

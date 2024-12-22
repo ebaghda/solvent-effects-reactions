@@ -16,4 +16,5 @@ EP.to_csv(r'ethylphenol_calibrations.csv')
 
 # plot calibration curve
 from plot_calibration_curve import plot_calibration_curve
-plot_calibration_curve(EP["peak_ratio"], EP["concentration"], "Peak Ratio","Ethylphenol Concentration (mM)")
+fig, ax = plot_calibration_curve(EP["peak_ratio"], EP["concentration"], "Peak Ratio","Ethylphenol Concentration (mM)")
+fig.savefig("ethylphenol_calibrations_900dpi.png", dpi=900, bbox_inches='tight')
