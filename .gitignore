@@ -34,3 +34,7 @@ _*.md
 *data*.csv
 *.ipynb
 *.parquet
+*.png
+*.tiff
+*.eps
+*.pdf
