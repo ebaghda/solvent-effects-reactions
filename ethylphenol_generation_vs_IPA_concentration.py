@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 plt.style.use("./style/simple_bold.mplstyle") #set plot style
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(8, 8)) #create a figure and axis
 
 DF = pd.read_parquet(r"vinylphenol transfer hydrogenation(data).parquet") #import the data
 df = DF[(DF["catalyst"] == "Pd") & (DF["temperature_C"] == 75) & (DF["formate_mM"] == 100) & (DF["stock_batch_number"] >= 0)] #filter the data
@@ -20,4 +20,4 @@ ax.set_ylim(-0.1, 1.1)
 ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0])
 ax.legend().set_visible(False) #hide the legend
 plt.savefig("ethylphenol_generation_vs_IPA_concentration_900dpi.png", bbox_inches="tight", dpi=900)
-plt.show()
+print('figure saved to "ethylphenol_generation_vs_IPA_concentration_900dpi.png"')
