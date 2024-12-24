@@ -53,14 +53,13 @@ ax[3].scatter(df11["time_min"], df11["ethylphenol_mM"], s=20, c="darkred", marke
 ax[3].text(17, 17.5, "Pd\n1000 mM formate")
 
 
-for ax in ax:
-    ax.set_xlabel("Time (min)")
-    ax.set_ylabel("Ethylphenol Concentration (mM)")
+for ax in ax: #loop over each axis object
+    ax.set_xlabel("Time (min)") #set x label
+    ax.set_ylabel("Ethylphenol Concentration (mM)") #set y label
     ax.legend(("0 mol% IPA", "10 mol% IPA", "20 mol% IPA"), loc="upper left")  #add legend
-    ax.set_ylim((0, 20))
-    ax.set_xlim((-1.5, 31.5))
+    ax.set_ylim((0, 20)) #set the y axis limits
+    ax.set_xlim((-1.5, 31.5)) #set x axis limits
     
-plt.tight_layout()
-plt.savefig("EB_concentration_profiles_Pd_900dpi.png", dpi=900)
-plt.show()
-print("done")
+plt.tight_layout() #correct the layout
+plt.savefig("EB_concentration_profiles_Pd_900dpi.png", dpi=900) #export a 900 dpi .png
+print("figure saved to \"EB_concentration_profiles_Pd_900dpi.png\"") #print a success statement
