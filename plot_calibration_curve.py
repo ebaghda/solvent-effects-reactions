@@ -1,30 +1,21 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import linregress
 
-def plot_calibration_curve(x_data, y_data, x_label, y_label):
-
-    # perform linear fit on the data
-    # calculate first degree polynomial
-    fit_coefs = np.polynomial.Polynomial.fit(x_data, y_data, deg=1,domain=[-1, 1])
-    fit_line = np.polynomial.Polynomial.linspace(fit_coefs, 2, domain=[np.min(x_data), np.max(x_data)])
-    
-    #calculate fit error
-    from linear_fit import linear_fit
-    fit_coefficients, standard_errors, corr_coef = linear_fit(x_data, y_data, True)
-    
-    # generate the plot
-    fig, ax = plt.subplots()
-    plt.scatter(x_data, y_data, s=20, c='darkred')
-    plt.plot(fit_line[0], fit_line[1], 'k')
-    
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
+def plot_calibration_curve1(x_data, y_data, x_label, y_label): #define function
+    fit_params = linregress(x_data, y_data) #fit the data using linear fit
+    print(fit_params) #print the fit parameters
+    fig, ax = plt.subplots() #initialize figure
+    plt.scatter(x_data, y_data, s=20, c='darkred') #plot the calibration data
+    plt.plot(x_data, fit_params.slope*x_data+fit_params.intercept, 'k') #plot the linear fit
+    plt.xlabel(x_label) #add x axis label
+    plt.ylabel(y_label) #add y axis label
     plt.annotate("concentration = "+ 
-                 np.array2string(fit_coefficients[0], precision=2)+"±"+
-                 np.array2string(standard_errors[0], precision=2)+" + "+
-                 np.array2string(fit_coefficients[1], precision=2) +"±"+
-                 np.array2string(standard_errors[1], precision=2) +" * (peak ratio)\ncorrelation coefficient: "+
-                 np.array2string(corr_coef, precision=4), 
-                 xy=(0.15,0.78), xycoords="figure fraction", fontsize=12)
-    print("returned plot to fig, ax)")
-    return fig, ax
+                 np.array2string(fit_params.slope, precision=2)+"±"+
+                 np.array2string(fit_params.stderr, precision=2)+" + "+
+                 np.array2string(fit_params.intercept, precision=2) +"±"+
+                 np.array2string(fit_params.intercept_stderr, precision=2) +" * (peak ratio)\ncorrelation coefficient: "+
+                 np.array2string(fit_params.rvalue, precision=4), 
+                 xy=(0.15,0.78), xycoords="figure fraction", fontsize=12) #add the fit equation and line to the plot
+    print("returned plot to fig, ax)") #print success message
+    return fig, ax #return fig, ax objects
