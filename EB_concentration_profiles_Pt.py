@@ -1,6 +1,6 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-plt.style.use("./style/simple_bold.mplstyle")
+import pandas as pd #import pandas
+import matplotlib.pyplot as plt #import matplotlib pyplot package
+plt.style.use("./style/simple_bold.mplstyle") #import stylesheet
 
 DF = pd.read_parquet(r"vinylphenol transfer hydrogenation(data).parquet") #import the data
 DF = DF[(DF["temperature_C"] == 75) & (DF['time_min'] <=30) & (DF.catalyst == "Pt")] #filter for temperature = 75 °C and Pt catalyst and time <= 30 min
@@ -51,14 +51,13 @@ ax1[3].scatter(df10["time_min"], df10["ethylphenol_mM"], s=20, c="darkblue") #se
 ax1[3].scatter(df11["time_min"], df11["ethylphenol_mM"], s=20, c="crimson") #select [IPA] = 20%
 ax1[3].text(17, 17.5, "Pt\n1000 mM formate")
 
-for ax1 in ax1:
-    ax1.set_xlabel("Time (min)")
-    ax1.set_ylabel("Ethylphenol Concentration (mM)")
+for ax1 in ax1: #loop over the axes
+    ax1.set_xlabel("Time (min)") #set x axis label
+    ax1.set_ylabel("Ethylphenol Concentration (mM)") #set y axis label
     ax1.legend(("0 mol% IPA", "10 mol% IPA", "20 mol% IPA"), loc="upper left")  #add legend
-    ax1.set_ylim((0, 20))
-    ax1.set_xlim((-1.5, 31.5))
+    ax1.set_ylim((0, 20)) #set y axis limits
+    ax1.set_xlim((-1.5, 31.5)) #set x axis limits
 
-plt.tight_layout()
-plt.savefig("EB_concentration_profiles_Pt_900dpi.png", dpi=900)
-plt.show()
-print("done")
+plt.tight_layout() #adjust plot margins
+plt.savefig("EB_concentration_profiles_Pt_900dpi.png", dpi=900) #export as 900 dpi .png
+print("figure exported to \"EB_concentration_profiles_Pt_900dpi.png\"") #print success message
