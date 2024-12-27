@@ -18,8 +18,8 @@ plt.ylabel("Ethylphenol Generation Rate (mM/g s)", labelpad=15, fontsize=24) #ad
 ax.set_xticklabels(["0", "0.1", "0.2"], fontsize=20) #set x axis tick labels
 ax.set_yticklabels(["0", "0.2", "0.4", "0.6", "0.8", "1.0"], fontsize=20) #set y axis tick labels
 ax.set_xticks([0, 0.1, 0.2]) #set x axis tick marks
-ax.set_ylim(-0.05, None) #set the y axis limits
-# ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0]) #set the y axis tick marks
+ax.set_ylim(-0.05, 1) #set the y axis limits
+ax.set_yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0]) #set the y axis tick marks
 ax.legend().set_visible(False) #hide the legend
 plt.annotate("Pd\n100 mM potassium formate", (0.02, 0.85), xycoords="axes fraction", fontsize=24, fontweight="bold") #add the catalyst label
 plt.savefig("ethylphenol_generation_vs_IPA_concentration_Pd_100mMPF_900dpi.png", bbox_inches="tight", dpi=900) #save the figure as a 900 dpi .png
