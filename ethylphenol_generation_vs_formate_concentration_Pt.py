@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 plt.style.use("./style/simple_bold.mplstyle") #select stylesheet
 
 DF = pd.read_parquet("vinylphenol transfer hydrogenation(data).parquet") #read .parquet data file 
-df = DF.query("time_min == 0 & formate_mM >= 10") #filter the data
+df = DF.query("time_min == 0 & formate_mM >= 0 & catalyst == 'Pd'") #filter the data
 
 print(df.head()) # check the first 5 rows are correct
 print(df.tail()) #check the last 5 rows are correct
@@ -22,5 +22,5 @@ plt.ylabel("Ethylphenol Generation Rate (mM/g s)") #set the ylabel
 plt.xlabel("Formate Concentration (mM)") #set the xlabel
 ax.set_xscale('log') # select the x scaling 
 ax.set_yscale('linear') #set the y scaling 
-fig.savefig("ethylphenol_generation_vs_formate_concentration.png", dpi=900, bbox_inches='tight') #export the figure as a 900 dpi .png
-print("saved figure as \"ethylphenol_generation_vs_formate_concentration_900dpi.png\"") #print success message
+fig.savefig("ethylphenol_generation_vs_formate_concentration_Pd_900dipi.png", dpi=900, bbox_inches='tight') #export the figure as a 900 dpi .png
+print("saved figure as \"ethylphenol_generation_vs_formate_concentration_Pd_900dpi.png\"") #print success message
