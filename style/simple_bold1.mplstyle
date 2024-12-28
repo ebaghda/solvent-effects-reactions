@@ -1,0 +1,51 @@
+
+
+# for use in panel plots
+#----------Format Plot Outline, Grid, and Tick Marks----------
+axes.linewidth : 2
+xtick.major.width : 2.25
+ytick.major.width : 2.25
+
+#----------Format Font and Title and Axes Labels----------
+font.family : Arial
+font.monospace : True
+font.size : 22
+
+axes.titlesize : 20
+axes.labelsize : 24
+
+axes.titleweight : bold
+axes.labelweight : bold
+
+xtick.labelsize : 22
+ytick.labelsize : 22
+
+#----------Format Lines and Markers----------
+lines.linewidth : 2
+lines.markersize : 85
+
+#Format Color List from #https://coolors.co/palette/ff0000-ff8700-ffd300-deff0a-a1ff0a-0aff99-0aefff-147df5-580aff-be0aff
+axes.prop_cycle: cycler('color', ["#ff0000","#ff8700","#ffd300","#deff0a","#a1ff0a","#0aff99","#0aefff","#147df5","#580aff","#be0aff"])
+
+#----------Format Legend----------
+legend.fancybox: False
+legend.borderaxespad: 0.5
+legend.borderpad: 0.2
+
+legend.columnspacing: 1.0
+legend.edgecolor: 0
+legend.facecolor: inherit
+legend.fontsize: small
+legend.framealpha: 1.0
+legend.frameon: True
+legend.handleheight: 0.7
+legend.handlelength: 2.0
+legend.handletextpad: 0.2
+legend.labelcolor: None
+legend.labelspacing: 0.1
+legend.loc: best
+legend.markerscale: 1.0
+legend.numpoints: 1
+legend.scatterpoints: 1
+legend.shadow: False
+legend.title_fontsize: None
