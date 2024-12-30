@@ -24,14 +24,19 @@ df6 = df[df["IPA_molefrac"] == 0.0] #select [IPA] = 0%
 df7 = df[df["IPA_molefrac"] == 0.1] #select [IPA] = 10%
 df8 = df[df["IPA_molefrac"] == 0.2] #select [IPA] = 20%
 
-index = 1000 #select formate concentration
+index = 500 #select formate concentration
 df = DF[(DF["formate_mM"] == index)] #select formate concentration
 df9 = df[df["IPA_molefrac"] == 0.0] #select [IPA] = 0%
 df10 = df[df["IPA_molefrac"] == 0.1] #select [IPA] = 10%
 df11 = df[df["IPA_molefrac"] == 0.2] #select [IPA] = 20%
 
+index = 1000 #select formate concentration
+df = DF[(DF["formate_mM"] == index)] #select formate concentration
+df12 = df[df["IPA_molefrac"] == 0.0] #select [IPA] = 0%
+df13 = df[df["IPA_molefrac"] == 0.1] #select [IPA] = 10%
+df14 = df[df["IPA_molefrac"] == 0.2] #select [IPA] = 20%
 
-fig, ax = plt.subplots(1,4, figsize=(20,4.5), dpi = 70) #initialize figure
+fig, ax = plt.subplots(1,5, figsize=(25,5), dpi = 70) #initialize figure
 ax[0].scatter(df0["time_min"], df0["ethylphenol_mM"], s=20, c="darkgreen", marker="s") #select [IPA] = 00%
 ax[0].scatter(df1["time_min"], df1["ethylphenol_mM"], s=20, c="darkblue", marker="^") #select [IPA] = 10%
 ax[0].scatter(df2["time_min"], df2["ethylphenol_mM"], s=20, c="darkred", marker="o") #select [IPA] = 20%
@@ -50,14 +55,18 @@ ax[2].text(18, 17.5, "Pd\n100 mM formate")
 ax[3].scatter(df9["time_min"], df9["ethylphenol_mM"], s=20, c="darkgreen", marker="s") #select [IPA] = 00%
 ax[3].scatter(df10["time_min"], df10["ethylphenol_mM"], s=20, c="darkblue", marker="^") #select [IPA] = 10%
 ax[3].scatter(df11["time_min"], df11["ethylphenol_mM"], s=20, c="darkred", marker="o") #select [IPA] = 20%
-ax[3].text(17, 17.5, "Pd\n1000 mM formate")
+ax[3].text(17, 17.5, "Pd\n500 mM formate")
 
+ax[4].scatter(df12["time_min"], df12["ethylphenol_mM"], s=20, c="darkgreen", marker="s") #select [IPA] = 00%
+ax[4].scatter(df13["time_min"], df13["ethylphenol_mM"], s=20, c="darkblue", marker="^") #select [IPA] = 10%
+ax[4].scatter(df14["time_min"], df14["ethylphenol_mM"], s=20, c="darkred", marker="o") #select [IPA] = 20%
+ax[4].text(17, 17.5, "Pd\n1000 mM formate")
 
 for ax in ax: #loop over each axis object
     ax.set_xlabel("Time (min)") #set x label
     ax.set_ylabel("Ethylphenol Concentration (mM)") #set y label
     ax.legend(("0 mol% IPA", "10 mol% IPA", "20 mol% IPA"), loc="upper left")  #add legend
-    ax.set_ylim((0, 20)) #set the y axis limits
+    ax.set_ylim((0, 25)) #set the y axis limits
     ax.set_xlim((-1.5, 31.5)) #set x axis limits
     
 plt.tight_layout() #correct the layout
