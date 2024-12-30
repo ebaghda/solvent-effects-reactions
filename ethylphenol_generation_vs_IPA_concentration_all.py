@@ -66,7 +66,7 @@ df[df["IPA_molefrac"] == 0.1].plot.scatter("IPA_molefrac", "EP_generation_rate",
 df[df["IPA_molefrac"] == 0.2].plot.scatter("IPA_molefrac", "EP_generation_rate", ax=ax[1, 1], label="20% IPA",s=250, c="g",edgecolor="k") #plot the 20% IPA data
 ax[1,1].annotate("Pt\n100 mM potassium formate", (0.02, 0.89), xycoords="axes fraction", fontsize=24, fontweight="bold") #add the catalyst label
 
-df= DF.query("catalyst == 'Pd' & temperature_C == 75 & formate_mM == 500 & stock_batch_number >= 0") #filter the data
+df= DF.query("catalyst == 'Pt' & temperature_C == 75 & formate_mM == 500 & stock_batch_number >= 0") #filter the data
 ax[1, 2].errorbar(df.IPA_molefrac, df.EP_generation_rate, yerr=df.EP_generation_rate_std_err, c="k", capsize=6, elinewidth=1.5, markeredgewidth=1.5, zorder=0) #plot the standard error
 
 df[df["IPA_molefrac"] == 0.0].plot.scatter("IPA_molefrac", "EP_generation_rate", ax=ax[1, 2], label="0% IPA",s=250, c="b", edgecolor="k") #plot the 0% IPA data
@@ -89,8 +89,8 @@ for row in ax:
         axi.set_xticks([0, 0.1, 0.2]) #set x axis tick marks
         axi.set_xticklabels(["0", "0.1", "0.2"], fontsize=22) #set x axis tick labels
         axi.set_xlim(-0.05, 0.25) #set the x axis limits
-        axi.set_ylim(-0.3, 10) #set the y axis limits
+        axi.set_ylim(-0.3, 20) #set the y axis limits
         axi.legend().set_visible(False) #hide the legend
-plt.savefig("ethylphenol_generation_vs_IPA_concentration_all_900dpi.png", bbox_inches="tight", dpi=900) #save the figure as a 900 dpi .png
+plt.savefig("ethylphenol_generation_vs_IPA_concentration_all_900dpi.png", bbox_inches="tight", dpi=100) #save the figure as a 900 dpi .png
 print('figure saved to "ethylphenol_generation_vs_IPA_concentration_all_900dpi.png"') #print success message
 print("DPI actually 200 - fix this ")
