@@ -85,7 +85,7 @@ ax[1,3].annotate("Pt\n1000 mM potassium formate", (0.02, 0.89), xycoords="axes f
 for row in ax:
     for axi in row:
         axi.set_xlabel("IPA Concentration (mole/mole)", labelpad=5, fontsize=26) #add x axis label
-        axi.set_ylabel("Ethylphenol Generation Rate (mM/g s)", labelpad=5, fontsize=26) #add y axis label
+        axi.set_ylabel("Ethylphenol Generation Rate (mM/g min)", labelpad=5, fontsize=26) #add y axis label
         axi.set_xticks([0, 0.1, 0.2]) #set x axis tick marks
         axi.set_xticklabels(["0", "0.1", "0.2"], fontsize=22) #set x axis tick labels
         axi.set_xlim(-0.05, 0.25) #set the x axis limits
