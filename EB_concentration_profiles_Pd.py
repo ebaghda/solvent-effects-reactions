@@ -37,29 +37,29 @@ df13 = df[df["IPA_molefrac"] == 0.1] #select [IPA] = 10%
 df14 = df[df["IPA_molefrac"] == 0.2] #select [IPA] = 20%
 
 fig, ax = plt.subplots(1,5, figsize=(25,5), dpi = 70) #initialize figure
-ax[0].scatter(df0["time_min"], df0["ethylphenol_mM"], s=20, c="darkgreen", marker="s") #select [IPA] = 00%
-ax[0].scatter(df1["time_min"], df1["ethylphenol_mM"], s=20, c="darkblue", marker="^") #select [IPA] = 10%
-ax[0].scatter(df2["time_min"], df2["ethylphenol_mM"], s=20, c="darkred", marker="o") #select [IPA] = 20%
+ax[0].scatter(df0["time_min"], df0["ethylphenol_mM"], s=20, c="darkblue", marker="s") #select [IPA] = 00%
+ax[0].scatter(df1["time_min"], df1["ethylphenol_mM"], s=20, c="lightblue", marker="^") #select [IPA] = 10%
+ax[0].scatter(df2["time_min"], df2["ethylphenol_mM"], s=20, c="darkgreen", marker="o") #select [IPA] = 20%
 ax[0].text(20, 17.5, "Pd\n1 mM formate")
 
-ax[1].scatter(df3["time_min"], df3["ethylphenol_mM"], s=20, c="darkgreen", marker="s") #select [IPA] = 00%
-ax[1].scatter(df4["time_min"], df4["ethylphenol_mM"], s=20, c="darkblue", marker="^") #select [IPA] = 10%
-ax[1].scatter(df5["time_min"], df5["ethylphenol_mM"], s=20, c="darkred", marker="o") #select [IPA] = 20%
+ax[1].scatter(df3["time_min"], df3["ethylphenol_mM"], s=20, c="darkblue", marker="s") #select [IPA] = 00%
+ax[1].scatter(df4["time_min"], df4["ethylphenol_mM"], s=20, c="lightblue", marker="^") #select [IPA] = 10%
+ax[1].scatter(df5["time_min"], df5["ethylphenol_mM"], s=20, c="darkgreen", marker="o") #select [IPA] = 20%
 ax[1].text(19, 17.5, "Pd\n10 mM formate")
 
-ax[2].scatter(df6["time_min"], df6["ethylphenol_mM"], s=20, c="darkgreen", marker="s") #select [IPA] = 00%
-ax[2].scatter(df7["time_min"], df7["ethylphenol_mM"], s=20, c="darkblue", marker="^") #select [IPA] = 10%
-ax[2].scatter(df8["time_min"], df8["ethylphenol_mM"], s=20, c="darkred", marker="o") #select [IPA] = 20%
+ax[2].scatter(df6["time_min"], df6["ethylphenol_mM"], s=20, c="darkblue", marker="s") #select [IPA] = 00%
+ax[2].scatter(df7["time_min"], df7["ethylphenol_mM"], s=20, c="lightblue", marker="^") #select [IPA] = 10%
+ax[2].scatter(df8["time_min"], df8["ethylphenol_mM"], s=20, c="darkgreen", marker="o") #select [IPA] = 20%
 ax[2].text(18, 17.5, "Pd\n100 mM formate")
 
-ax[3].scatter(df9["time_min"], df9["ethylphenol_mM"], s=20, c="darkgreen", marker="s") #select [IPA] = 00%
-ax[3].scatter(df10["time_min"], df10["ethylphenol_mM"], s=20, c="darkblue", marker="^") #select [IPA] = 10%
-ax[3].scatter(df11["time_min"], df11["ethylphenol_mM"], s=20, c="darkred", marker="o") #select [IPA] = 20%
+ax[3].scatter(df9["time_min"], df9["ethylphenol_mM"], s=20, c="darkblue", marker="s") #select [IPA] = 00%
+ax[3].scatter(df10["time_min"], df10["ethylphenol_mM"], s=20, c="lightblue", marker="^") #select [IPA] = 10%
+ax[3].scatter(df11["time_min"], df11["ethylphenol_mM"], s=20, c="darkgreen", marker="o") #select [IPA] = 20%
 ax[3].text(17, 17.5, "Pd\n500 mM formate")
 
-ax[4].scatter(df12["time_min"], df12["ethylphenol_mM"], s=20, c="darkgreen", marker="s") #select [IPA] = 00%
-ax[4].scatter(df13["time_min"], df13["ethylphenol_mM"], s=20, c="darkblue", marker="^") #select [IPA] = 10%
-ax[4].scatter(df14["time_min"], df14["ethylphenol_mM"], s=20, c="darkred", marker="o") #select [IPA] = 20%
+ax[4].scatter(df12["time_min"], df12["ethylphenol_mM"], s=20, c="darkblue", marker="s") #select [IPA] = 00%
+ax[4].scatter(df13["time_min"], df13["ethylphenol_mM"], s=20, c="lightblue", marker="^") #select [IPA] = 10%
+ax[4].scatter(df14["time_min"], df14["ethylphenol_mM"], s=20, c="darkgreen", marker="o") #select [IPA] = 20%
 ax[4].text(17, 17.5, "Pd\n1000 mM formate")
 
 for ax in ax: #loop over each axis object
@@ -70,5 +70,5 @@ for ax in ax: #loop over each axis object
     ax.set_xlim((-1.5, 31.5)) #set x axis limits
     
 plt.tight_layout() #correct the layout
-plt.savefig("EB_concentration_profiles_Pd_900dpi.png", dpi=900) #export a 900 dpi .png
+plt.savefig("EB_concentration_profiles_Pd_900dpi.png", dpi=100) #export a 900 dpi .png
 print("figure saved to \"EB_concentration_profiles_Pd_900dpi.png\"") #print a success statement
