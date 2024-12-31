@@ -1,4 +1,3 @@
-'''
 """
 Usage:
     1. Ensure the data file "vinylphenol transfer hydrogenation(data).parquet" is in the same directory as this script.
@@ -10,10 +9,8 @@ Dependencies:
     - numpy
     - matplotlib
     - scipy
-"""
 This script fits the data from the vinylphenol transfer hydrogenation reaction to a linear model. The data is filtered by catalyst, formate concentration, and isopropanol mole fraction. The script plots the data and the fit curve for each reaction. The slope, intercept, and coefficient of determination (COD) are printed for each concentration profile.
-
-'''
+"""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,9 +20,9 @@ from scipy.stats import linregress
 DF = pd.read_parquet("vinylphenol transfer hydrogenation(data).parquet") #import the data
 DF = DF.query("temperature_C == 75 & time_min <= 30") #filter the data
 
-catalyst = "Pt" #select the catalyst
-formate_mM = 1000 #mM
-IPA_molefrac = 0.2 #mole fraction
+catalyst = "Pd" #select the catalyst %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+formate_mM = 500 #mM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+IPA_molefrac = 0.1 #mole fraction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 DF = DF.query("catalyst == @catalyst & formate_mM == @formate_mM & IPA_molefrac == @IPA_molefrac") #filter the data
 DF.plot.scatter(x="time_min", y="ethylphenol_mM", s=8, c='k') #plot the data
