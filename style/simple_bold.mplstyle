@@ -11,7 +11,7 @@ font.monospace : True
 font.size : 14
 
 axes.titlesize : 14
-axes.labelsize : 15
+axes.labelsize : 14
 
 axes.titleweight : bold
 axes.labelweight : bold
@@ -21,7 +21,7 @@ ytick.labelsize : 14
 
 #----------Format Lines and Markers----------
 lines.linewidth : 1.5
-lines.markersize : 25
+lines.markersize : 8
 
 #Format Color List from #https://coolors.co/palette/ff0000-ff8700-ffd300-deff0a-a1ff0a-0aff99-0aefff-147df5-580aff-be0aff
 axes.prop_cycle: cycler('color', ["#ff0000","#ff8700","#ffd300","#deff0a","#a1ff0a","#0aff99","#0aefff","#147df5","#580aff","#be0aff"])
@@ -34,7 +34,7 @@ legend.borderpad: 0.2
 legend.columnspacing: 1.0
 legend.edgecolor: 0
 legend.facecolor: inherit
-legend.fontsize: small
+legend.fontsize: 14
 legend.framealpha: 1.0
 legend.frameon: True
 legend.handleheight: 0.7
