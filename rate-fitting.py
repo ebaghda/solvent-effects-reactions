@@ -21,10 +21,11 @@ DF = pd.read_parquet("vinylphenol transfer hydrogenation(data).parquet") #import
 DF = DF.query("temperature_C == 75 & time_min <= 30") #filter the data
 
 catalyst = "Pd" #select the catalyst %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-formate_mM = 250 #mM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-IPA_molefrac = 0 #mole fraction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+formate_mM = 2000 #mM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+IPA_molefrac = 0.1 #mole fraction %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 DF = DF.query("catalyst == @catalyst & formate_mM == @formate_mM & IPA_molefrac == @IPA_molefrac") #filter the data
+DF = DF.query("time_min == 0 | time_min == 5 | time_min == 10 | time_min == 15") #filter the data
 DF.plot.scatter(x="time_min", y="ethylphenol_mM", s=8, c='k') #plot the data
 
 for rxn in DF.rxn_label.unique(): #loop over unique reaction labels
