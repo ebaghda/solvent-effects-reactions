@@ -22,6 +22,8 @@ DF = pd.read_parquet("vinylphenol transfer hydrogenation(data).parquet")
 
 ## PERFORM FITTING FOR REACTIONS RATES
 #TODO: Add fitting code here
+from rate_fitting import rate_fitting
+rate_fitting(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 250)
 
 ## GENERATE FIGURES
 
