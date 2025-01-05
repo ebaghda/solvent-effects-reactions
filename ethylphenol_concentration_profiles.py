@@ -10,10 +10,21 @@ def load_and_filter_data(filepath: str, rxn_temperature: float, catalyst: str) -
     return DF #return the filtered data
 
 def plot_concentration_profiles(df:pd.DataFrame, ax: plt.Axes, formate_mM: float, catalyst: str) -> None: #define a function to plot the concentration profiles
-    df = df.query("formate_mM == @formate_mM") #filter the data for the current formate concentration and catalyst
-    ax.scatter(df.query("IPA_molefrac == 0")["time_min"], df.query("IPA_molefrac == 0")["ethylphenol_mM"], c="darkblue" , marker="s", edgecolor="k") #select [IPA] = 00%
-    ax.scatter(df.query("IPA_molefrac == 0.1")["time_min"], df.query("IPA_molefrac == 0.1")["ethylphenol_mM"], c="#58a8f9", marker="^", edgecolor="k") #select [IPA] = 10%
-    ax.scatter(df.query("IPA_molefrac == 0.2")["time_min"], df.query("IPA_molefrac == 0.2")["ethylphenol_mM"], c="darkgreen", marker="o", edgecolor="k") #select [IPA] = 20%
+    for replicate in range(1,4): #loop over each replicate
+
+        (ax.plot(
+            df.query("IPA_molefrac == 0 & formate_mM == @formate_mM & replicate == @replicate")["time_min"], 
+            df.query("IPA_molefrac == 0 & formate_mM == @formate_mM & replicate == @replicate")["ethylphenol_mM"], markerfacecolor="darkblue", markeredgecolor='k', marker="s", c="darkblue", ls=':', lw='1') #select [IPA] = 00%
+         )
+
+        (ax.plot(
+            df.query("IPA_molefrac == 0.1 & formate_mM == @formate_mM & replicate == @replicate")["time_min"], 
+            df.query("IPA_molefrac == 0.1 & formate_mM == @formate_mM & replicate == @replicate")["ethylphenol_mM"], markerfacecolor="#58a8f9", markeredgecolor='k', marker="^", c="#3898a9", ls=':', lw='1') #select [IPA] = 10%
+        )
+        (ax.plot(
+            df.query("IPA_molefrac == 0.2 & formate_mM == @formate_mM & replicate == @replicate")["time_min"], 
+            df.query("IPA_molefrac == 0.2 & formate_mM == @formate_mM & replicate == @replicate")["ethylphenol_mM"], markerfacecolor="darkgreen", markeredgecolor='k', marker="o", c="darkgreen", ls=':', lw='1') #select [IPA] = 20%
+        )
     ax.annotate(f"{catalyst}\n{formate_mM} mM potassium formate", (0.02, 0.7), xycoords="axes fraction", fontweight="bold") #add the catalyst label to the plot
 
 #main function
@@ -32,7 +43,7 @@ def plot_ethylphenol_concentration_profiles(filepath: str, rxn_temperature: floa
         ax.set_xlabel("Time (min)") #set x label
         ax.set_ylabel("Ethylphenol Concentration (mM)") #set y label        
         ax.legend(("0 mol% IPA", "10 mol% IPA", "20 mol% IPA"), loc="upper left")  #add legend
-        ax.set_ylim((0, 25)) #set the y axis limits
+        ax.set_ylim((0, 30)) #set the y axis limits
         ax.set_xlim((-1.5, 31.5)) #set x axis limits
     
     plt.tight_layout() #correct the layout

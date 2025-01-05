@@ -19,9 +19,10 @@ def plot_ethylphenol_generation_rate_vs_IPA_concentration_single_formate_concent
         legend.set_visible(False) #hide the 
         
         df = DF.query("catalyst == @catalyst & formate_mM == @formate_concentration") #filter the data for the formate concentration
-        plt.errorbar(df[df["IPA_molefrac"] == 0.0]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.0]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.0]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1, marker='o', markerfacecolor='b') #plot 00% IPA data
-        plt.errorbar(df[df["IPA_molefrac"] == 0.1]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.1]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.1]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1,marker='^', markerfacecolor='#58a8f9') #plot 10% IPA data
-        plt.errorbar(df[df["IPA_molefrac"] == 0.2]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.2]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.2]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1,marker='s', markerfacecolor='g') #plot 20% IPA data
+
+        plt.errorbar(df[df["IPA_molefrac"] == 0.0]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.0]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.0]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1, marker='o', markerfacecolor='b', ls='none') #plot 00% IPA data
+        plt.errorbar(df[df["IPA_molefrac"] == 0.1]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.1]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.1]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1,marker='^', markerfacecolor='#58a8f9', ls='none') #plot 10% IPA data
+        plt.errorbar(df[df["IPA_molefrac"] == 0.2]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.2]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.2]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1,marker='s', markerfacecolor='g', ls='none') #plot 20% IPA data
         
         plt.annotate(f"{catalyst}\n{formate_concentration} mM potassium formate", (0.02, 0.85), xycoords="axes fraction", fontweight="bold") #add the catalyst label
 
