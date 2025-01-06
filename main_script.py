@@ -27,7 +27,8 @@ DF = pd.read_parquet("vinylphenol transfer hydrogenation(data).parquet")
 ## PERFORM FITTING FOR REACTIONS RATES
 #TODO: Add fitting code here
 from rate_fitting import plot_fitting_results
-plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = panel_dpi)
+plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = panel_dpi, catalyst="Pd", vertical_layout=False)
+plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = panel_dpi, catalyst="Pt", vertical_layout=False)
 
 ## GENERATE FIGURES
 
@@ -38,8 +39,7 @@ for catalyst in DF.catalyst.unique():
 
 # PLOT EP GENERATION RATE VS FORMATE CONCENTRATION
 from ethylphenol_generation_vs_formate_concentration import plot_ethylphenol_generation_rate_vs_formate_concentration
-for catalyst in DF.catalyst.unique():
-    plot_ethylphenol_generation_rate_vs_formate_concentration(filepath=r"vinylphenol transfer hydrogenation(data).parquet", catalyst=catalyst, dpi=single_axis_dpi) #run script
+plot_ethylphenol_generation_rate_vs_formate_concentration(dpi=single_axis_dpi) #run script
 
 # PLOT EP GENERATION RATE VS IPA CONCENTRATION PANEL
 from ethylphenol_generation_vs_IPA_concentration_panel import plot_ethylphenol_generation_rate_vs_IPA_concentration_panel

@@ -1,6 +1,6 @@
 """
 Usage:
-    1. Ensure the data file "vinylphenol transfer hydrogenation(data).parquet" is in the same directory as this script.
+    1. Ensure the raw data file "vinylphenol transfer hydrogenation(data).parquet" is in the same directory as this script.
     2. Adjust the catalyst, formate concentration, and isopropanol mole fraction as needed.
     3. Run the script to generate the scatter plot and fit curves.
     4. The script will display the plot and print the fit results for each reaction.
@@ -9,80 +9,29 @@ Dependencies:
     - numpy
     - matplotlib
     - scipy
-This script fits the data from the vinylphenol transfer hydrogenation reaction to a linear model. The data is filtered by catalyst, formate concentration, and isopropanol mole fraction. The script plots the data and the fit curve for each reaction. The slope, intercept, and coefficient of determination (COD) are printed for each concentration profile.
+This script fits the data from the vinylphenol transfer hydrogenation reaction to a linear model. The data is filtered by catalyst, formate concentration, and isopropanol mole fraction. The script plots the data and the fit curve for each reaction. The mass activity, mass activity error, and coefficient of determination (COD) are printed for each concentration profile.
 """
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-plt.style.use("./style/simple_bold.mplstyle") #set plot style
-from scipy.stats import linregress
+import pandas as pd #import pandas
+import numpy as np #import numpy
+import matplotlib.pyplot as plt #import matplotlib.pyplot
+plt.style.use("./style/simple_bold.mplstyle") #set plot stylesheet
+from scipy.stats import linregress #import linear regression from scipy
 
-def load_and_filter_data(filepath: str, ) -> pd.DataFrame:
-    df = pd.read_parquet(filepath)
-    df = df.query("temperature_C == 75 & time_min <=30 & catalyst == 'Pd'")
-    return df
+def plot_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(data).parquet", dpi: int = 300, vertical_layout: bool = True, catalyst: str = "Pd"):
 
+    from fit_ethylphenol_concentration_profiles import fit_ethylphenol_concentration_profiles_and_write_to_DataFrame
+    DF = fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi)
 
-def rate_fitting(filepath: str, dpi: int) -> pd.DataFrame: #retun 
-    df = load_and_filter_data(filepath)
-    FitData = pd.DataFrame(columns=["rxn_label", "catalyst", "formate_mM", "IPA_molefrac", 
-                                    "slope", "slope_stderr", 
-                                    "intercept", "intercept_stderr", 
-                                    "mass_activity", "mass_activity_stderr"])
+    df=pd.read_parquet(f"{catalyst}_fitting_results.parquet")
+    if vertical_layout:
+        fig, ax = plt.subplots(len(df.formate_mM.unique()), 1, figsize = (5, 5*len(df.formate_mM.unique())))
+    else:
+        fig, ax = plt.subplots(1, len(df.formate_mM.unique()), figsize = (5*len(df.formate_mM.unique()), 5))
 
-    for catalyst in df["catalyst"].unique():
-        for formate_mM in sorted(df["formate_mM"].unique()):
-            
-            color_list = ['darkblue', '#58a8f9', 'darkgreen'] #colors for plots
-            for IPA_molefrac, color in zip(sorted(df["IPA_molefrac"].unique()), color_list):
-                df1 = df.query("catalyst == @catalyst & formate_mM == @formate_mM & IPA_molefrac == @IPA_molefrac") #filter the data
-                plt.scatter(df1.time_min, df1.ethylphenol_mM, c=color, edgecolor='k')
-                DF = df1.query("time_min <= 15") if formate_mM >= 250 else df1 #fit only the linear portion of the data
-                for rxn in DF.rxn_label.unique(): #loop over unique reaction labels
-                    fit_result = linregress(DF[DF["rxn_label"] == rxn]["time_min"], DF[DF["rxn_label"] == rxn]["ethylphenol_mM"]) #fit the data
-                    x_fit = np.linspace(DF["time_min"].min(), DF["time_min"].max(), 2) #generate x values for fit curve
-                    y_fit = fit_result.slope * x_fit + fit_result.intercept #generate y values using the fit parameters
-                    plt.plot(x_fit, y_fit, color=color) #plot the fit curve
-                    
-                    
-                    ## WRITE TO NEW DATAFRAME = -- throws error %%%%%%%%%%%%%%%%
-                    new_row = pd.DataFrame({
-                    "rxn_label": [rxn],
-                    "catalyst": [catalyst],
-                    "formate_mM": [formate_mM],
-                    "IPA_molefrac": [IPA_molefrac],
-                    "slope": [fit_result.slope],
-                    "slope_stderr": [fit_result.stderr],
-                    "intercept": [fit_result.intercept],
-                    "intercept_stderr": [fit_result.intercept_stderr],
-                    "mass_activity":[fit_result.slope/DF.query("rxn_label == @rxn").catalyst_mass.unique()], 
-                    "mass_activity_stderr":[fit_result.stderr/DF.query("rxn_label == @rxn").catalyst_mass.unique()]
-                    })
+    formate_concentrations = list(reversed(sorted(df.formate_mM.unique()))) if vertical_layout else sorted(df.formate_mM.unique())
+    print(formate_concentrations)
 
-                    FitData = pd.concat([FitData, new_row], ignore_index=True)
-
-                    print(f'catayst = {catalyst}, formate concentration = {formate_mM}, IPA mole fraction = {IPA_molefrac}, rxn: {rxn} : slope = {fit_result.slope:.2f} ± {fit_result.stderr:.2f}, intercept = {fit_result.intercept:.2f} ± {fit_result.intercept_stderr:.2f}, COD = {fit_result.rvalue:.2f}')
-                    ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            plt.xlabel("Time (min)") #add x-axis label
-            plt.ylabel("Ethylphenol Concentration (mM)") #add y-axis label
-            plt.title(f"catalyst = {catalyst}, [formate] = {formate_mM: .0f} mM") #add title
-            plt.savefig(f"./fitted-concentration-profiles/fitted_ethylphenol_generation_vs_time_{catalyst}_{formate_mM}mM_formate_{dpi}dpi.png", dpi=dpi, bbox_inches='tight') #export the figure as a 900 dpi .png
-            print(f'figure saved to "fitted_ethylphenol_generation_vs_time_{catalyst}_{formate_mM}mM_formate_{dpi}dpi.png"')
-            plt.clf()
-    FitData.to_parquet(r"./fitting_results.parquet")
-    print('fit results saved to "fitting_results.parquet"')
-    return FitData
-
-
-def plot_fitting_results(filepath, dpi):
-    DF = rate_fitting(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi)
-    df=DF
-    fig, ax = plt.subplots(1, len(df.formate_mM.unique()), figsize = (5*len(df.formate_mM.unique()), 5))
-
-    formate_concentrations = df.formate_mM.unique()
     for i in range(len(formate_concentrations)): #for each formate concentration
-        catalyst = "Pd"
         formate_concentration = formate_concentrations[i] #get the current formate concentration
         df = DF.query("formate_mM == @formate_concentration") #filter the data for the current formate concentration
 
@@ -100,7 +49,7 @@ def plot_fitting_results(filepath, dpi):
         ax[i].set_xticks([0, 0.1, 0.2]) #set x axis tick marks
         ax[i].set_xticklabels(["0", "0.1", "0.2"]) #set x axis tick labels
         ax[i].set_xlim(-0.05, 0.25) #set the x axis limits
-        ax[i].set_ylim(-0.3, 30) #set the y axis limits
+        ax[i].set_ylim(-0.3, 30) if catalyst == "Pd" else None #set the y axis limits
         
     plt.tight_layout() #correct the layout
     fig.savefig(f"ethylphenol_generation_vs_IPA_concentrationFIT_RESULT_panel_{catalyst}_{dpi}dpi.png", bbox_inches="tight", dpi=dpi) #save the figure as a 900 dpi .png
@@ -108,7 +57,4 @@ def plot_fitting_results(filepath, dpi):
         
 
 if __name__ == "__main__":
-    #FitData = rate_fitting(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 250)
-    # print("completed rate_fitting.py")
-    # print(FitData.head(100).to_string())
-    plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 250)
+    plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 200, vertical_layout=False, catalyst = "Pt")
