@@ -50,4 +50,4 @@ for catalyst in DF.catalyst.unique():
 from ethylphenol_generation_vs_IPA_concentration import plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations
 plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations(filepath=r"vinylphenol transfer hydrogenation(data).parquet", dpi=single_axis_dpi) #run scriptPA_concentration_for_all_concentrations
 
-print("Completed running main.py")
+print("Completed running main_script.py")
