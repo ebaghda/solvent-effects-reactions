@@ -31,7 +31,7 @@ def plot_ethylphenol_generation_rate_vs_IPA_concentration_single_formate_concent
         ax.set_xticks([0, 0.1, 0.2]) #set x axis tick marks
         ax.set_xticklabels(["0", "0.1", "0.2"]) #set x axis tick labels
 
-        plt.savefig(f"./EP-gen-vs-IPA-conc-individual/ethylphenol_generation_vs_IPA_concentration_{catalyst}_{formate_concentration}mMPF_{dpi}dpi.png", bbox_inches="tight", dpi=900) #save the figure as a 900 dpi .png
+        plt.savefig(f"./linear-EP-gen-vs-IPA-conc-individual/ethylphenol_generation_vs_IPA_concentration_{catalyst}_{formate_concentration}mMPF_{dpi}dpi.png", bbox_inches="tight", dpi=900) #save the figure as a 900 dpi .png
         print(f'figure saved to "ethylphenol_generation_vs_IPA_concentration_{catalyst}_{formate_concentration}mMPF_{dpi}dpi.png"') #print success message
 
 
@@ -42,7 +42,7 @@ def plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations
             plot_ethylphenol_generation_rate_vs_IPA_concentration_single_formate_concentration(filepath, formate_concentration, dpi)
         except:
             print(f"Error plotting {formate_concentration} mM formate")
-    print("All figures saved to \"EP-gen-vs-IPA-conc-individual\" folder") #print success message
+    print("All figures saved to \"linear-EP-gen-vs-IPA-conc-individual\" folder") #print success message
 
 if __name__ == "__main__": #run script if it is called directly
     plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations(filepath=r"vinylphenol transfer hydrogenation(data).parquet", dpi=300) #run script

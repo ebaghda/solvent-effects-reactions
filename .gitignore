@@ -38,3 +38,5 @@ _*.md
 *.tiff
 *.eps
 *.pdf
+*.docx
+cheatsheets/

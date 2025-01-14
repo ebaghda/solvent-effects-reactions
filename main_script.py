@@ -1,8 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-single_axis_dpi = 900
-panel_dpi = 300
+single_axis_dpi = 600 #set figure resolution for all single axis figures
+panel_dpi = 200 #set figure resolution for all panel figures (keep lower)
 
 #delete png files in current folder
 import os
@@ -14,10 +14,12 @@ def delete_pngs_in_subfolder(subfolder_name:str) -> None: #delete the png files 
         if file.endswith(".png"):
             os.remove(f"./{subfolder_name}/{file}") 
             
-#delete png files in subfolder: "EP-gen-vs-IPA-conc-individual"
-delete_pngs_in_subfolder("EP-gen-vs-IPA-conc-individual")
+#delete png files in subfolder: "linear-EP-gen-vs-IPA-conc-individual"
+delete_pngs_in_subfolder("linear-EP-gen-vs-IPA-conc-individual")
 #delete png files in subfolder: "fitted-concentration-profiles"
 delete_pngs_in_subfolder("fitted-concentration-profiles")
+delete_pngs_in_subfolder("fitted-concentration-profiles/linear")
+delete_pngs_in_subfolder("fitted-concentration-profiles/first-order")
 
 ## IMPORT DATA & CONVERT TO PARQUET
 from csv_to_parquet import csv_to_parquet
@@ -25,10 +27,16 @@ csv_to_parquet("vinylphenol transfer hydrogenation(data).csv")
 DF = pd.read_parquet("vinylphenol transfer hydrogenation(data).parquet")
 
 ## PERFORM FITTING FOR REACTIONS RATES
-#TODO: Add fitting code here
+#linear fit
 from rate_fitting import plot_fitting_results
 plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = panel_dpi, catalyst="Pd", vertical_layout=False)
 plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = panel_dpi, catalyst="Pt", vertical_layout=False)
+
+#first order fit
+from first_order_fit import first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame
+first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame()
+#TODO: wrap function in function to genreate panel
+print("need to wrap first order fits to get panel")
 
 ## GENERATE FIGURES
 

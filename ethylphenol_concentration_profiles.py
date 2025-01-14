@@ -6,11 +6,11 @@ plt.style.use("./style/simple_bold.mplstyle") #set plot style
 #helper functions
 def load_and_filter_data(filepath: str, rxn_temperature: float, catalyst: str) -> pd.DataFrame: #define a function to load and filter the data
     DF = pd.read_parquet(r"vinylphenol transfer hydrogenation(data).parquet") #import the data
-    DF = DF[(DF["temperature_C"] == 75) & (DF.catalyst == catalyst)] #filter for temperature = 75 °C and Pd catalyst
+    DF = DF[(DF["temperature_C"] == 75) & (DF.catalyst == catalyst)] #filter for temperature = 75 °C and catalyst
     return DF #return the filtered data
 
 def plot_concentration_profiles(df:pd.DataFrame, ax: plt.Axes, formate_mM: float, catalyst: str) -> None: #define a function to plot the concentration profiles
-    for replicate in range(1,4): #loop over each replicate
+    for replicate in range(1,5): #loop over each replicate
 
         (ax.plot(
             df.query("IPA_molefrac == 0 & formate_mM == @formate_mM & replicate == @replicate")["time_min"], 
