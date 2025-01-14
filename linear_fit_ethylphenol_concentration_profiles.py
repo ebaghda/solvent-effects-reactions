@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 plt.style.use("./style/simple_bold.mplstyle") #select stylesheet
 from scipy.stats import linregress #import linear regression from scipy
 
-def fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(filename: str = r"./vinylphenol transfer hydrogenation(data).parquet", dpi: int = 300) -> pd.DataFrame: #return 
+def linear_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(filename: str = r"./vinylphenol transfer hydrogenation(data).parquet", dpi: int = 300) -> pd.DataFrame: #return 
     df = pd.read_parquet(filename) #import raw data
     df = df.query("temperature_C == 75") #filter the data for temperature
     FitData = pd.DataFrame(columns=["rxn_label", "catalyst", "formate_mM", "IPA_molefrac", "slope", "slope_stderr", "intercept", "intercept_stderr", "mass_activity", "mass_activity_stderr", "COD"]) #initialize fit results dataframe
@@ -46,18 +46,17 @@ def fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(filename: str 
 
                     FitData = pd.concat([FitData, new_row], ignore_index=True)
 
-                    # print(f'catalyst = {catalyst}, formate concentration = {formate_mM}, IPA mole fraction = {IPA_molefrac}, rxn: {rxn} : mass activity = {fit_result.slope/DF.query("rxn_label == @rxn").catalyst_mass.unique():.2f} ± {fit_result.stderr/DF.query("rxn_label == @rxn").catalyst_mass.unique():.2f}, COD = {fit_result.rvalue:.2f}')
                     ##%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
             plt.xlabel("Time (min)") #add x-axis label
             plt.ylabel("Ethylphenol Concentration (mM)") #add y-axis label
             plt.title(f"catalyst = {catalyst}, [formate] = {formate_mM: .0f} mM") #add title
-            fig.savefig(f"./fitted-concentration-profiles/TESTTESTfitted_ethylphenol_generation_vs_time_{catalyst}_{formate_mM}mM_formate_{dpi}dpi.png", dpi=dpi, bbox_inches='tight') #export the figure as a 900 dpi .png
+            fig.savefig(f"./fitted-concentration-profiles/linear/fitted_ethylphenol_generation_vs_time_{catalyst}_{formate_mM}mM_formate_{dpi}dpi.png", dpi=dpi, bbox_inches='tight') #export the figure as a 900 dpi .png
             print(f'figure saved to "fitted_ethylphenol_generation_vs_time_{catalyst}_{formate_mM}mM_formate_{dpi}dpi.png"')
             fig.clf()
-    FitData.to_parquet(f"./{catalyst}_fitting_results.parquet")
-    print(f'fit results saved to "{catalyst}_fitting_results.parquet"')
+        FitData.to_parquet(f"./{catalyst}_fitting_results.parquet")
+        print(f'fit results saved to "{catalyst}_fitting_results.parquet"')
     return FitData
 
 if __name__ == "__main__":
-   fit_ethylphenol_concentration_profiles_and_write_to_DataFrame()
+   linear_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame()
