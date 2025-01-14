@@ -9,15 +9,16 @@ def csv_to_parquet(filename: str) -> None: #function header
     # TODO: add pd.astype with dictionary to reorganize all columns.
     #remove any empty rows at the end of the file
     while pd.isna(df.temp_measured_C.iloc[-1]): #while the last row is empty
-        print("removing last row")
+        print("removing last row - is empty")
         df = df[:-1]
+
     df = df.query("temperature_C == 75 & time_min <= 30 & formate_mM >= 1 & rxn_label != 101 & rxn_label != 102 & rxn_label != 103 & rxn_label != 104")
-    ## EXCLUDED REACTIONS 
-    '''
+    ''' EXCLUDED REACTIONS
+    101, 102, 103: 1000 mM using stock batch number 1 - vinylphenol had oligomerized
     104: 2000 mM using stock batch number 1 - vinylphenol had oligomerized
     '''
     print("excluding reactions with temperature != 75, time > 30, formate < 1, rxn_label = 101, 102, 103 (bad stock vinylphenol)") #list the exclusions
-    df.to_parquet(filename.replace(".csv", ".parquet")) #write the date to a .parquet file
+    df.to_parquet(filename.replace(".csv", ".parquet")) #write the data to a .parquet file
     print("Converted .csv to .parquet file") #print success message
 
 if __name__ == "__main__": #if the script is run directly
