@@ -17,19 +17,21 @@ import matplotlib.pyplot as plt #import matplotlib.pyplot
 plt.style.use("./style/simple_bold.mplstyle") #set plot stylesheet
 from scipy.stats import linregress #import linear regression from scipy
 
+
 def plot_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(data).parquet", dpi: int = 300, vertical_layout: bool = True, catalyst: str = "Pd"):
 
-    from fit_ethylphenol_concentration_profiles import fit_ethylphenol_concentration_profiles_and_write_to_DataFrame
-    DF = fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi)
+    from linear_fit_ethylphenol_concentration_profiles import linear_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame
+    DF = linear_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi)
 
     df=pd.read_parquet(f"{catalyst}_fitting_results.parquet")
+    df = df.query("catalyst == @catalyst")
     if vertical_layout:
+        
         fig, ax = plt.subplots(len(df.formate_mM.unique()), 1, figsize = (5, 5*len(df.formate_mM.unique())))
     else:
         fig, ax = plt.subplots(1, len(df.formate_mM.unique()), figsize = (5*len(df.formate_mM.unique()), 5))
 
-    formate_concentrations = list(reversed(sorted(df.formate_mM.unique()))) if vertical_layout else sorted(df.formate_mM.unique())
-    print(formate_concentrations)
+    formate_concentrations = sorted(df.formate_mM.unique(), reverse=vertical_layout)
 
     for i in range(len(formate_concentrations)): #for each formate concentration
         formate_concentration = formate_concentrations[i] #get the current formate concentration
@@ -53,6 +55,7 @@ def plot_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(da
         
     plt.tight_layout() #correct the layout
     fig.savefig(f"ethylphenol_generation_vs_IPA_concentrationFIT_RESULT_panel_{catalyst}_{dpi}dpi.png", bbox_inches="tight", dpi=dpi) #save the figure as a 900 dpi .png
+    fig.clf()
     print(f'figure saved to "ethylphenol_generation_vs_IPA_concentration_panel_{catalyst}_{dpi}dpi.png"') #print success message
         
 
