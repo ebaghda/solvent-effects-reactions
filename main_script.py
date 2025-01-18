@@ -7,7 +7,7 @@ panel_dpi = 200 #set figure resolution for all panel figures (keep lower)
 #delete png files in current folder
 import os
 for file in os.listdir():
-    if file.endswith(".png"):
+    if file.endswith(".png") or file.endswith(".parquet"):
         os.remove(file) 
 def delete_pngs_in_subfolder(subfolder_name:str) -> None: #delete the png files in a specified subfolder
     for file in os.listdir(f"./{subfolder_name}"):
@@ -27,14 +27,21 @@ csv_to_parquet("vinylphenol transfer hydrogenation(data).csv")
 DF = pd.read_parquet("vinylphenol transfer hydrogenation(data).parquet")
 
 ## PERFORM FITTING FOR REACTIONS RATES
+from linear_fit_inplace import linear_fit_all_and_rewrite_in_dataframe
+linear_fit_all_and_rewrite_in_dataframe()
+
+from first_order_fit_inplace import fit_all_and_rewrite_in_dataframe
+fit_all_and_rewrite_in_dataframe()
+
+## VISUALIZE FITTING FOR REACTIONS
 #linear fit
 from rate_fitting import plot_fitting_results
 plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = panel_dpi, catalyst="Pd", vertical_layout=False)
 plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = panel_dpi, catalyst="Pt", vertical_layout=False)
 
 #first order fit
-from first_order_fit import first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame
-first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame()
+from first_order_fit import first_order_fit_ethylphenol_concentration_profiles
+first_order_fit_ethylphenol_concentration_profiles()
 #TODO: wrap function in function to genreate panel
 print("need to wrap first order fits to get panel")
 
@@ -51,11 +58,15 @@ plot_ethylphenol_generation_rate_vs_formate_concentration(dpi=single_axis_dpi) #
 
 # PLOT EP GENERATION RATE VS IPA CONCENTRATION PANEL
 from ethylphenol_generation_vs_IPA_concentration_panel import plot_ethylphenol_generation_rate_vs_IPA_concentration_panel
+
 for catalyst in DF.catalyst.unique():
-    plot_ethylphenol_generation_rate_vs_IPA_concentration_panel(filepath=r"vinylphenol transfer hydrogenation(data).parquet", catalyst = catalyst,formate_concentrations=[], dpi=panel_dpi) #run script
+    plot_ethylphenol_generation_rate_vs_IPA_concentration_panel(filepath=r"vinylphenol transfer hydrogenation(data)_fitted.parquet", catalyst = catalyst,formate_concentrations=[], dpi=panel_dpi) #run script
 
 
 from ethylphenol_generation_vs_IPA_concentration import plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations
-plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations(filepath=r"vinylphenol transfer hydrogenation(data).parquet", dpi=single_axis_dpi) #run scriptPA_concentration_for_all_concentrations
+plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations(filepath=r"vinylphenol transfer hydrogenation(data)_fitted.parquet", dpi=single_axis_dpi) #run scriptPA_concentration_for_all_concentrations
+
+from mean_ethylphenol_generation_rate_vs_formate_concentration import plot_mean_ethylphenol_generation_vs_formate_concentration
+plot_mean_ethylphenol_generation_vs_formate_concentration()
 
 print("Completed running main_script.py")

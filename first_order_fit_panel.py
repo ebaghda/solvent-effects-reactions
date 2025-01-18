@@ -1,42 +1,29 @@
-"""
-Usage:
-    1. Ensure the raw data file "vinylphenol transfer hydrogenation(data).parquet" is in the same directory as this script.
-    2. Adjust the catalyst, formate concentration, and isopropanol mole fraction as needed.
-    3. Run the script to generate the scatter plot and fit curves.
-    4. The script will display the plot and print the fit results for each reaction.
-Dependencies:
-    - pandas
-    - numpy
-    - matplotlib
-    - scipy
-This script fits the data from the vinylphenol transfer hydrogenation reaction to a linear model. The data is filtered by catalyst, formate concentration, and isopropanol mole fraction. The script plots the data and the fit curve for each reaction. The mass activity, mass activity error, and coefficient of determination (COD) are printed for each concentration profile.
-"""
 import pandas as pd #import pandas
 import numpy as np #import numpy
 import matplotlib.pyplot as plt #import matplotlib.pyplot
-plt.style.use("./style/simple_bold.mplstyle") #set plot stylesheet
+plt.style.use("./style/simple_bold.mplstyle") #set matplotlib stylesheet
 
 
 def plot_first_order_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(data).parquet", dpi: int = 300, vertical_layout: bool = True, catalyst: str = "Pd"):
 
-    from first_order_fit import first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame
+    ## Perform first order fitting on each ethylphenol concentration profile for a given catalyst
+    from first_order_fit import first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame #import fitting function -> yields dataframe
+    
+    try: #look for the already generated parquet file
+        df = pd.read_parquet(f"{catalyst}_first_order_fit_results.parquet")
+    except: #if it doesn't exist, remake it
+        df = first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi) 
 
-    DF = first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi)
-
-    df=pd.read_parquet(f"{catalyst}_first_order_fit_results.parquet")
-    df = df.query("catalyst == @catalyst")
-    if vertical_layout:
-        
+    if vertical_layout: #if the function is called with vertical_layout=True
         fig, ax = plt.subplots(len(df.formate_mM.unique()), 1, figsize = (5, 5*len(df.formate_mM.unique())))
     else:
         fig, ax = plt.subplots(1, len(df.formate_mM.unique()), figsize = (5*len(df.formate_mM.unique()), 5))
 
-    formate_concentrations = list(reversed(sorted(df.formate_mM.unique()))) if vertical_layout else sorted(df.formate_mM.unique())
-    print(formate_concentrations)
+    formate_concentrations = sorted(df.formate_mM.unique(), reverse=vertical_layout) #sort the formate concentrations
 
     for i in range(len(formate_concentrations)): #for each formate concentration
         formate_concentration = formate_concentrations[i] #get the current formate concentration
-        df = DF.query("formate_mM == @formate_concentration") #filter the data for the current formate concentration
+        df = df.query("formate_mM == @formate_concentration & catalyst == @catalyst") #filter the data
 
         legend = ax[1].legend(["0% IPA", "10% IPA", "20% IPA"], loc="upper left") #add the legend
         legend.set_visible(False) #hide the legend
@@ -61,5 +48,5 @@ def plot_first_order_fitting_results(filepath: str = r"vinylphenol transfer hydr
         
 
 if __name__ == "__main__":
-    plot_first_order_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 200, vertical_layout=False, catalyst = "Pd")
-    plot_first_order_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 200, vertical_layout=False, catalyst = "Pt")
+    plot_first_order_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 250, vertical_layout=False, catalyst = "Pd")
+    plot_first_order_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 250, vertical_layout=False, catalyst = "Pt")

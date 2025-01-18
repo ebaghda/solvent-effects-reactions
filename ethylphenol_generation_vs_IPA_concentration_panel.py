@@ -23,9 +23,9 @@ def plot_ethylphenol_generation_rate_vs_IPA_concentration_panel(filepath: str, c
         legend = ax[1].legend(["0% IPA", "10% IPA", "20% IPA"], loc="upper left") #add the legend
         legend.set_visible(False) #hide the legend
 
-        ax[i].errorbar(df.query("IPA_molefrac == 0")["IPA_molefrac"], df.query("IPA_molefrac == 0")["EP_generation_rate"], yerr=df.query("IPA_molefrac == 0")["EP_generation_rate_std_err"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="o", ls='none', markerfacecolor = 'b') #plot the 00% IPA data
-        ax[i].errorbar(df.query("IPA_molefrac == 0.1")["IPA_molefrac"], df.query("IPA_molefrac == 0.1")["EP_generation_rate"], yerr=df.query("IPA_molefrac == 0.1")["EP_generation_rate_std_err"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="^", ls='none', markerfacecolor = '#58a8f9') #plot 10% IPA data
-        ax[i].errorbar(df.query("IPA_molefrac == 0.2")["IPA_molefrac"], df.query("IPA_molefrac == 0.2")["EP_generation_rate"], yerr=df.query("IPA_molefrac == 0.2")["EP_generation_rate_std_err"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="s", ls='none', markerfacecolor = 'g') #plot 20% IPA data
+        ax[i].errorbar(df.query("IPA_molefrac == 0")["IPA_molefrac"], df.query("IPA_molefrac == 0")["mass_activity"], yerr=df.query("IPA_molefrac == 0")["mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="o", ls='none', markerfacecolor = 'b') #plot the 00% IPA data
+        ax[i].errorbar(df.query("IPA_molefrac == 0.1")["IPA_molefrac"], df.query("IPA_molefrac == 0.1")["mass_activity"], yerr=df.query("IPA_molefrac == 0.1")["mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="^", ls='none', markerfacecolor = '#58a8f9') #plot 10% IPA data
+        ax[i].errorbar(df.query("IPA_molefrac == 0.2")["IPA_molefrac"], df.query("IPA_molefrac == 0.2")["mass_activity"], yerr=df.query("IPA_molefrac == 0.2")["mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="s", ls='none', markerfacecolor = 'g') #plot 20% IPA data
         
         ax[i].annotate(f"{catalyst}\n{formate_concentration} mM potassium formate", (0.02, 0.89), xycoords="axes fraction", fontweight="bold") #add the catalyst label
         
@@ -34,11 +34,11 @@ def plot_ethylphenol_generation_rate_vs_IPA_concentration_panel(filepath: str, c
         ax[i].set_xticks([0, 0.1, 0.2]) #set x axis tick marks
         ax[i].set_xticklabels(["0", "0.1", "0.2"]) #set x axis tick labels
         ax[i].set_xlim(-0.05, 0.25) #set the x axis limits
-        ax[i].set_ylim(-0.3, 20) #set the y axis limits
+        ax[i].set_ylim(-0.3, 27) #set the y axis limits
         
     plt.tight_layout() #correct the layout
     fig.savefig(f"ethylphenol_generation_vs_IPA_concentration_panel_{catalyst}_{dpi}dpi.png", bbox_inches="tight", dpi=dpi) #save the figure as a 900 dpi .png
     print(f'figure saved to "ethylphenol_generation_vs_IPA_concentration_panel_{catalyst}_{dpi}dpi.png"') #print success message
 
 if __name__ == "__main__": #run script if it is called directly
-    plot_ethylphenol_generation_rate_vs_IPA_concentration_panel(filepath=r"vinylphenol transfer hydrogenation(data).parquet", catalyst = 'Pd',formate_concentrations=[], dpi=250) #run script
+    plot_ethylphenol_generation_rate_vs_IPA_concentration_panel(filepath=r"vinylphenol transfer hydrogenation(data)_fitted.parquet", catalyst = 'Pd',formate_concentrations=[], dpi=250) #run script

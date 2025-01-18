@@ -19,10 +19,12 @@ def plot_ethylphenol_generation_rate_vs_IPA_concentration_single_formate_concent
         legend.set_visible(False) #hide the 
         
         df = DF.query("catalyst == @catalyst & formate_mM == @formate_concentration") #filter the data for the formate concentration
-
-        plt.errorbar(df[df["IPA_molefrac"] == 0.0]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.0]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.0]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1, marker='o', markerfacecolor='b', ls='none') #plot 00% IPA data
-        plt.errorbar(df[df["IPA_molefrac"] == 0.1]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.1]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.1]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1,marker='^', markerfacecolor='#58a8f9', ls='none') #plot 10% IPA data
-        plt.errorbar(df[df["IPA_molefrac"] == 0.2]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.2]["EP_generation_rate"], yerr=df[df["IPA_molefrac"] == 0.2]["EP_generation_rate_std_err"], c="k", capsize=4, linewidth=1,marker='s', markerfacecolor='g', ls='none') #plot 20% IPA data
+        if df.empty:
+            print(f"no data found for catalyst = {catalyst} and formate concentration = {formate_concentration}")
+            continue
+        plt.errorbar(df[df["IPA_molefrac"] == 0.0]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.0]["mass_activity"], yerr=df[df["IPA_molefrac"] == 0.0]["mass_activity_SE"], c="k", capsize=4, linewidth=1, marker='o', markerfacecolor='b', ls='none') #plot 00% IPA data
+        plt.errorbar(df[df["IPA_molefrac"] == 0.1]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.1]["mass_activity"], yerr=df[df["IPA_molefrac"] == 0.1]["mass_activity_SE"], c="k", capsize=4, linewidth=1,marker='^', markerfacecolor='#58a8f9', ls='none') #plot 10% IPA data
+        plt.errorbar(df[df["IPA_molefrac"] == 0.2]["IPA_molefrac"], df[df["IPA_molefrac"] == 0.2]["mass_activity"], yerr=df[df["IPA_molefrac"] == 0.2]["mass_activity_SE"], c="k", capsize=4, linewidth=1,marker='s', markerfacecolor='g', ls='none') #plot 20% IPA data
         
         plt.annotate(f"{catalyst}\n{formate_concentration} mM potassium formate", (0.02, 0.85), xycoords="axes fraction", fontweight="bold") #add the catalyst label
 
@@ -38,11 +40,15 @@ def plot_ethylphenol_generation_rate_vs_IPA_concentration_single_formate_concent
 def plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations(filepath: str, dpi: int) -> None: #define a function to plot EP generation rate vs IPA concentration for all formate concentrations
     DF = load_and_filter_data(filepath) #load and filter data
     for formate_concentration in DF["formate_mM"].unique():
+        plot_ethylphenol_generation_rate_vs_IPA_concentration_single_formate_concentration(filepath, formate_concentration, dpi)
+
+        '''
         try:
             plot_ethylphenol_generation_rate_vs_IPA_concentration_single_formate_concentration(filepath, formate_concentration, dpi)
         except:
             print(f"Error plotting {formate_concentration} mM formate")
+            '''
     print("All figures saved to \"linear-EP-gen-vs-IPA-conc-individual\" folder") #print success message
 
 if __name__ == "__main__": #run script if it is called directly
-    plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations(filepath=r"vinylphenol transfer hydrogenation(data).parquet", dpi=300) #run script
+    plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations(filepath=r"vinylphenol transfer hydrogenation(data)_fitted.parquet", dpi=300) #run script
