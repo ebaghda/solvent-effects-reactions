@@ -32,6 +32,7 @@ def  plot_mean_ethylphenol_generation_vs_formate_concentration(catalyst: str = "
     fig.savefig(f"mean_ethylphenol_generation_vs_formate_concentration_{catalyst}_{dpi}dpi_truncated.png", dpi=dpi, bbox_inches='tight') #export the figure as a 900 dpi .png
        
     print(f"saved figure as \"ethylphenol_generation_vs_formate_concentration_{catalyst}_{dpi}dpi.png\"") #print success message
+    return fig, ax
 
 if __name__ == "__main__":
  plot_mean_ethylphenol_generation_vs_formate_concentration(show_replicates=False)
