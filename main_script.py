@@ -1,6 +1,6 @@
 
 single_axis_dpi = 600 #set figure resolution for all single axis figures
-panel_dpi = 200 #set figure resolution for all panel figures (keep lower)
+panel_dpi = 400 #set figure resolution for all panel figures (keep lower)
 
 #delete png files in current folder
 import os

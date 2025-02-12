@@ -5,7 +5,6 @@ def csv_to_parquet(filename: str) -> None: #function header
     """
     df = pd.read_csv(filename, header=0, skiprows=[1], encoding="latin", parse_dates=['date']) #read in the .csv file
     print("reading csv... header: 0 | skiprows: [1] | encoding: latin") #list the .csv file reader settings
-    print(df.columns)
     df.astype({'rxn_label': int}) #convert rxn_label to int
 
     ## FILTER DATA
@@ -15,7 +14,7 @@ def csv_to_parquet(filename: str) -> None: #function header
     104: 2000 mM using stock batch number 1 - vinylphenol had oligomerized
     166: biphasic partitioning for 4000 mM 10% ipa
     '''
-    print("excluding reactions with rxn_label = 101, 102, 103, 104 (bad stock vinylphenol)") #list the exclusions
+    print("excluding reactions with rxn_label = 101, 102, 103, 104 (bad stock vinylphenol), 166 (phase partitioning)") #list the exclusions
     df.to_parquet(filename.replace(".csv", ".parquet")) #write the data to a .parquet file
     print("Converted .csv to .parquet file") #print success message
 
