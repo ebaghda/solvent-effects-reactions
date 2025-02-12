@@ -14,7 +14,7 @@ def plot_concentration_profiles(df:pd.DataFrame, ax: plt.Axes, formate_mM: float
 
         (ax.plot(
             df.query("IPA_molefrac == 0 & formate_mM == @formate_mM & replicate == @replicate")["time_min"], 
-            df.query("IPA_molefrac == 0 & formate_mM == @formate_mM & replicate == @replicate")["ethylphenol_mM"], markerfacecolor="darkblue", markeredgecolor='k', marker="s", c="darkblue", ls=':', lw='1') #select [IPA] = 00%
+            df.query("IPA_molefrac == 0 & formate_mM == @formate_mM & replicate == @replicate")["ethylphenol_mM"], markerfacecolor="darkblue", markeredgecolor='k', marker="o", c="darkblue", ls=':', lw='1') #select [IPA] = 00%
          )
 
         (ax.plot(
@@ -23,7 +23,7 @@ def plot_concentration_profiles(df:pd.DataFrame, ax: plt.Axes, formate_mM: float
         )
         (ax.plot(
             df.query("IPA_molefrac == 0.2 & formate_mM == @formate_mM & replicate == @replicate")["time_min"], 
-            df.query("IPA_molefrac == 0.2 & formate_mM == @formate_mM & replicate == @replicate")["ethylphenol_mM"], markerfacecolor="darkgreen", markeredgecolor='k', marker="o", c="darkgreen", ls=':', lw='1') #select [IPA] = 20%
+            df.query("IPA_molefrac == 0.2 & formate_mM == @formate_mM & replicate == @replicate")["ethylphenol_mM"], markerfacecolor="darkgreen", markeredgecolor='k', marker="s", c="darkgreen", ls=':', lw='1') #select [IPA] = 20%
         )
     ax.annotate(f"{catalyst}\n{formate_mM} mM potassium formate", (0.02, 0.7), xycoords="axes fraction", fontweight="bold") #add the catalyst label to the plot
 

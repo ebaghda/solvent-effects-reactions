@@ -3,25 +3,28 @@ import pandas as pd
 from scipy.optimize import curve_fit
 
 def linear_fit_all_and_rewrite_in_dataframe(filename: str = "vinylphenol transfer hydrogenation(data).parquet"):
-    try:
+    try: #if a fitting function has already been applied to the raw data dataframe, read that one in
         df = pd.read_parquet("vinylphenol transfer hydrogenation(data)_fitted.parquet")
-    except: 
+    except: #if no fitted dataframe has been generated, read in the raw data
         df = pd.read_parquet(filename)
-        
-    new_columns = {"slope": np.nan, "slope_SE": np.nan, "intercept": np.nan, "intercept_SE": np.nan, "mass_activity": np.nan, "mass_activity_SE": np.nan}
-    df = df.assign(**new_columns)
-    print(df.head())
+    new_columns = {"slope": np.nan, 
+                   "slope_SE": np.nan, 
+                   "intercept": np.nan, 
+                   "intercept_SE": np.nan, 
+                   "mass_activity": np.nan, 
+                   "mass_activity_SE": np.nan} #define a dictionary of new columns for the linear fitting results
+    df = df.assign(**new_columns) #assign the new columns to the dataframe
 
-    # Define first order fitting function
-    def first_order(x, m, b):
+    # Define linear fitting function
+    def linear(x, m, b):
         y = m*x+b
         return y
 
-    for rxn_label in df.rxn_label.unique():
-        
+    for rxn_label in df.rxn_label.unique(): #loop over each reaction
+        # trucate the fit for high formate concentrations
         xdata = df[df["rxn_label"] == rxn_label].time_min[0:4] if df[df["rxn_label"] == rxn_label].formate_mM.unique() >= 250 else df[df["rxn_label"] == rxn_label].time_min
         ydata = df[df["rxn_label"] == rxn_label].ethylphenol_mM[0:4] if df[df["rxn_label"] == rxn_label].formate_mM.unique() >= 250 else df[df["rxn_label"] == rxn_label].ethylphenol_mM
-        fit_result, covariance = curve_fit(first_order, xdata, ydata, bounds=(-1000, 1000), p0=[20, 0.5])
+        fit_result, covariance = curve_fit(linear, xdata, ydata)
         if rxn_label == 115:
             print(xdata, ydata, df.formate_mM)
             # raise("stop")

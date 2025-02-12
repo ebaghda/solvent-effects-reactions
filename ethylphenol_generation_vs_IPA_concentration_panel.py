@@ -23,9 +23,9 @@ def plot_ethylphenol_generation_rate_vs_IPA_concentration_panel(filepath: str, c
         legend = ax[1].legend(["0% IPA", "10% IPA", "20% IPA"], loc="upper left") #add the legend
         legend.set_visible(False) #hide the legend
 
-        ax[i].errorbar(df.query("IPA_molefrac == 0")["IPA_molefrac"], df.query("IPA_molefrac == 0")["mass_activity"], yerr=df.query("IPA_molefrac == 0")["mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="o", ls='none', markerfacecolor = 'b') #plot the 00% IPA data
+        ax[i].errorbar(df.query("IPA_molefrac == 0")["IPA_molefrac"], df.query("IPA_molefrac == 0")["mass_activity"], yerr=df.query("IPA_molefrac == 0")["mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="o", ls='none', markerfacecolor = 'darkblue') #plot the 00% IPA data
         ax[i].errorbar(df.query("IPA_molefrac == 0.1")["IPA_molefrac"], df.query("IPA_molefrac == 0.1")["mass_activity"], yerr=df.query("IPA_molefrac == 0.1")["mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="^", ls='none', markerfacecolor = '#58a8f9') #plot 10% IPA data
-        ax[i].errorbar(df.query("IPA_molefrac == 0.2")["IPA_molefrac"], df.query("IPA_molefrac == 0.2")["mass_activity"], yerr=df.query("IPA_molefrac == 0.2")["mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="s", ls='none', markerfacecolor = 'g') #plot 20% IPA data
+        ax[i].errorbar(df.query("IPA_molefrac == 0.2")["IPA_molefrac"], df.query("IPA_molefrac == 0.2")["mass_activity"], yerr=df.query("IPA_molefrac == 0.2")["mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="s", ls='none', markerfacecolor = 'darkgreen') #plot 20% IPA data
         
         ax[i].annotate(f"{catalyst}\n{formate_concentration} mM potassium formate", (0.02, 0.89), xycoords="axes fraction", fontweight="bold") #add the catalyst label
         

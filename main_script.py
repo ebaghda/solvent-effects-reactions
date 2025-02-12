@@ -1,8 +1,6 @@
-import pandas as pd
-import matplotlib.pyplot as plt
 
 single_axis_dpi = 600 #set figure resolution for all single axis figures
-panel_dpi = 200 #set figure resolution for all panel figures (keep lower)
+panel_dpi = 400 #set figure resolution for all panel figures (keep lower)
 
 #delete png files in current folder
 import os
@@ -24,7 +22,6 @@ delete_pngs_in_subfolder("fitted-concentration-profiles/first-order")
 ## IMPORT DATA & CONVERT TO PARQUET
 from csv_to_parquet import csv_to_parquet
 csv_to_parquet("vinylphenol transfer hydrogenation(data).csv")
-DF = pd.read_parquet("vinylphenol transfer hydrogenation(data).parquet")
 
 ## PERFORM FITTING FOR REACTIONS RATES
 from linear_fit_inplace import linear_fit_all_and_rewrite_in_dataframe
@@ -49,7 +46,7 @@ print("need to wrap first order fits to get panel")
 
 # PLOT EP CONCENTRATION VS TIME FOR EACH CATALYST
 from ethylphenol_concentration_profiles import plot_ethylphenol_concentration_profiles
-for catalyst in DF.catalyst.unique():
+for catalyst in ["Pd", "Pt"]:
     plot_ethylphenol_concentration_profiles(filepath=r"vinylphenol transfer hydrogenation(data).parquet", rxn_temperature=75, catalyst=catalyst, formate_concentrations=[], dpi=panel_dpi) #run script
 
 # PLOT EP GENERATION RATE VS FORMATE CONCENTRATION
@@ -59,7 +56,7 @@ plot_ethylphenol_generation_rate_vs_formate_concentration(dpi=single_axis_dpi) #
 # PLOT EP GENERATION RATE VS IPA CONCENTRATION PANEL
 from ethylphenol_generation_vs_IPA_concentration_panel import plot_ethylphenol_generation_rate_vs_IPA_concentration_panel
 
-for catalyst in DF.catalyst.unique():
+for catalyst in ["Pd", "Pt"]:
     plot_ethylphenol_generation_rate_vs_IPA_concentration_panel(filepath=r"vinylphenol transfer hydrogenation(data)_fitted.parquet", catalyst = catalyst,formate_concentrations=[], dpi=panel_dpi) #run script
 
 
