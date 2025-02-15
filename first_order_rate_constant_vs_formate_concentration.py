@@ -18,13 +18,13 @@ def plot_rate_constant_vs_formate_concentration(filepath: str, catalyst: str, dp
     ax.errorbar(df[df["IPA_molefrac"] == 0.2]['formate_mM'], df[df["IPA_molefrac"] == 0.2]['rate_constant'], yerr=df[df["IPA_molefrac"] == 0.2]['rate_constant_SE'], c="k", capsize=4, linewidth=1, marker='s', markerfacecolor='darkgreen', ls='none') #plot the 20% IPA data
 
     plt.xlabel('Formate Concentration (mM)')
-    plt.ylabel('Rate Constant (1/min)')
+    plt.ylabel('Rate Constant (1/g min)')
     # ax.set_ylim((0, 2))
     ax.legend(["0 mol% IPA", "10 mol% IPA", "20 mol% IPA"])
     ax.set_xscale('log') # select the x scaling 
     ax.set_yscale('linear') #set the y scaling 
     
-    plt.savefig(f'rate_constant_vs_formate_concentration_{catalyst}_{dpi}dpi.png', dpi=dpi, bbox_inches='tight')
+    plt.savefig(f'first_order_rate_constant_vs_formate_concentration_{catalyst}_{dpi}dpi.png', dpi=dpi, bbox_inches='tight')
     print(f'Plot saved as rate_constant_vs_formate_concentration_{catalyst}_{dpi}dpi.png')
 
 if __name__ == "__main__":

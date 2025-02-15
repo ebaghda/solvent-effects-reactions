@@ -27,7 +27,7 @@ def aggregate_replicates(filename: str = r"vinylphenol transfer hydrogenation(da
                     except:
                         pass 
 
-                df["mean_mass_activity_n"] = n
+                df.loc[mask, "mean_mass_activity_n"] = n
                 df.loc[mask, "mean_mass_activity_SE"] = mean_mass_activity_SE
     df.to_parquet(filename.replace(".parquet", "_averaged.parquet"))
     print(f"Fitted data saved to {filename.replace('.parquet', '_fitted.parquet')}")
