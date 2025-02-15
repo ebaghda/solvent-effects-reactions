@@ -9,9 +9,9 @@ def plot_ethylphenol_generation_rate_vs_formate_concentration(dpi: int) -> None:
         df = df.query("catalyst == @catalyst")
 
         fig, ax = plt.subplots(figsize=(5,5)) #initialize figure
-        plt.errorbar(df.query("IPA_molefrac == 0")["formate_mM"], df.query("IPA_molefrac == 0")["mass_activity"], yerr=df.query("IPA_molefrac == 0")["mass_activity_stderr"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="o", ls='none', markerfacecolor = 'b') #plot the standard error of each fit
+        plt.errorbar(df.query("IPA_molefrac == 0")["formate_mM"], df.query("IPA_molefrac == 0")["mass_activity"], yerr=df.query("IPA_molefrac == 0")["mass_activity_stderr"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="o", ls='none', markerfacecolor = 'darkblue') #plot the standard error of each fit
         plt.errorbar(df.query("IPA_molefrac == 0.1")["formate_mM"], df.query("IPA_molefrac == 0.1")["mass_activity"], yerr=df.query("IPA_molefrac == 0.1")["mass_activity_stderr"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="^", ls='none', markerfacecolor = '#58a8f9') #plot the standard error of each fit
-        plt.errorbar(df.query("IPA_molefrac == 0.2")["formate_mM"], df.query("IPA_molefrac == 0.2")["mass_activity"], yerr=df.query("IPA_molefrac == 0.2")["mass_activity_stderr"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="s", ls='none', markerfacecolor = 'g') #plot the standard error of each fit
+        plt.errorbar(df.query("IPA_molefrac == 0.2")["formate_mM"], df.query("IPA_molefrac == 0.2")["mass_activity"], yerr=df.query("IPA_molefrac == 0.2")["mass_activity_stderr"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="s", ls='none', markerfacecolor = 'darkgreen') #plot the standard error of each fit
         ax.legend(["0 mol% IPA", "10 mol% IPA", "20 mol% IPA"])
         plt.ylabel("Ethylphenol Generation Rate (mM/g min)") #set the ylabel
         plt.xlabel("Formate Concentration (mM)") #set the xlabel

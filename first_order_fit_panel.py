@@ -7,12 +7,12 @@ plt.style.use("./style/simple_bold.mplstyle") #set matplotlib stylesheet
 def plot_first_order_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(data).parquet", dpi: int = 300, vertical_layout: bool = True, catalyst: str = "Pd"):
 
     ## Perform first order fitting on each ethylphenol concentration profile for a given catalyst
-    from first_order_fit import first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame #import fitting function -> yields dataframe
+    from first_order_fit import first_order_fit_ethylphenol_concentration_profiles #import fitting function -> yields dataframe
     
     try: #look for the already generated parquet file
         df = pd.read_parquet(f"{catalyst}_first_order_fit_results.parquet")
     except: #if it doesn't exist, remake it
-        df = first_order_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi) 
+        df = first_order_fit_ethylphenol_concentration_profiles(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi) 
 
     if vertical_layout: #if the function is called with vertical_layout=True
         fig, ax = plt.subplots(len(df.formate_mM.unique()), 1, figsize = (5, 5*len(df.formate_mM.unique())))

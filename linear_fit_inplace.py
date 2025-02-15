@@ -5,6 +5,7 @@ from scipy.optimize import curve_fit
 def linear_fit_all_and_rewrite_in_dataframe(filename: str = "vinylphenol transfer hydrogenation(data).parquet"):
     try: #if a fitting function has already been applied to the raw data dataframe, read that one in
         df = pd.read_parquet("vinylphenol transfer hydrogenation(data)_fitted.parquet")
+        print(df.columns.tolist())
     except: #if no fitted dataframe has been generated, read in the raw data
         df = pd.read_parquet(filename)
     new_columns = {"slope": np.nan, 
