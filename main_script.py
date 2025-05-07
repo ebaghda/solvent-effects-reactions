@@ -69,9 +69,6 @@ for catalyst in ["Pd", "Pt"]:
 from ethylphenol_generation_vs_IPA_concentration import plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations
 plot_ethylphenol_generation_rate_vs_IPA_concentration_for_all_concentrations(filepath=r"vinylphenol transfer hydrogenation(data)_fitted.parquet", dpi=single_axis_dpi) #run script
 
-
-
-
 ### 4. --------------- PERFORM FIRST-ORDER FITTING ---------------
 
 ## PERFORM FIRST ORDER FITTING FOR RATE CONSTANTS

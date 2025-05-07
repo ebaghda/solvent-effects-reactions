@@ -8,6 +8,7 @@ def  plot_mean_ethylphenol_generation_vs_formate_concentration(catalyst: str = "
     df = aggregate_replicates()
 
     fig, ax = plt.subplots(figsize=(5,5)) #initialize figure
+    # plot individual initial mass activities
     if show_replicates:
         plt.errorbar(df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0)]["formate_mM"], df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0)]["mass_activity"], yerr=df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0)]["mass_activity_SE"], fmt="", c='gray', capsize=4, linewidth=1, zorder=0, marker="o", ls='none', markerfacecolor = 'gray')
     
@@ -15,6 +16,7 @@ def  plot_mean_ethylphenol_generation_vs_formate_concentration(catalyst: str = "
 
         plt.errorbar(df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0.2)]["formate_mM"], df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0.2)]["mass_activity"], yerr=df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0.2)]["mass_activity_SE"], fmt="", c='gray', capsize=4, linewidth=1, zorder=0, marker="s", ls='none', markerfacecolor = 'gray')
 
+    # plot the mean inital mass activities
     plt.errorbar(df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0)]["formate_mM"], df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0)]["mean_mass_activity"], yerr=df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0)]["mean_mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="o", ls='none', markerfacecolor = 'b')
     
     plt.errorbar(df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0.1)]["formate_mM"], df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0.1)]["mean_mass_activity"], yerr=df[(df["catalyst"] == catalyst)&(df["IPA_molefrac"] == 0.1)]["mean_mass_activity_SE"], fmt="", c='black', capsize=4, linewidth=1, zorder=0, marker="^", ls='none', markerfacecolor = '#58a8f9')

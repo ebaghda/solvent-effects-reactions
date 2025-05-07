@@ -12,13 +12,12 @@ Dependencies:
 This script fits the data from the vinylphenol transfer hydrogenation reaction to a linear model. The data is filtered by catalyst, formate concentration, and isopropanol mole fraction. The script plots the data and the fit curve for each reaction. The mass activity, mass activity error, and coefficient of determination (COD) are printed for each concentration profile.
 """
 import pandas as pd #import pandas
-import numpy as np #import numpy
 import matplotlib.pyplot as plt #import matplotlib.pyplot
 plt.style.use("./style/simple_bold.mplstyle") #set plot stylesheet
 from scipy.stats import linregress #import linear regression from scipy
 
 
-def plot_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(data).parquet", dpi: int = 300, vertical_layout: bool = True, catalyst: str = "Pd"):
+def plot_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(data).parquet", dpi: int = 300, vertical_layout: bool = True, catalyst: str = "Pd") -> pd.DataFrame:
 
     from linear_fit_ethylphenol_concentration_profiles import linear_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame
     DF = linear_fit_ethylphenol_concentration_profiles_and_write_to_DataFrame(r"vinylphenol transfer hydrogenation(data).parquet", dpi = dpi)
@@ -26,7 +25,6 @@ def plot_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(da
     df=pd.read_parquet(f"{catalyst}_fitting_results.parquet")
     df = df.query("catalyst == @catalyst")
     if vertical_layout:
-        
         fig, ax = plt.subplots(len(df.formate_mM.unique()), 1, figsize = (5, 5*len(df.formate_mM.unique())))
     else:
         fig, ax = plt.subplots(1, len(df.formate_mM.unique()), figsize = (5*len(df.formate_mM.unique()), 5))
@@ -35,7 +33,7 @@ def plot_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(da
 
     for i in range(len(formate_concentrations)): #for each formate concentration
         formate_concentration = formate_concentrations[i] #get the current formate concentration
-        df = DF.query("formate_mM == @formate_concentration") #filter the data for the current formate concentration
+        df = DF.query("formate_mM == @formate_concentration & catalyst == @catalyst") #filter the data for the current formate concentration
 
         legend = ax[1].legend(["0% IPA", "10% IPA", "20% IPA"], loc="upper left") #add the legend
         legend.set_visible(False) #hide the legend
@@ -53,11 +51,10 @@ def plot_fitting_results(filepath: str = r"vinylphenol transfer hydrogenation(da
         ax[i].set_xlim(-0.05, 0.25) #set the x axis limits
         ax[i].set_ylim(-0.3, 30) if catalyst == "Pd" else None #set the y axis limits
         
-    plt.tight_layout() #correct the layout
     fig.savefig(f"ethylphenol_generation_vs_IPA_concentrationFIT_RESULT_panel_{catalyst}_{dpi}dpi.png", bbox_inches="tight", dpi=dpi) #save the figure as a 900 dpi .png
     fig.clf()
     print(f'figure saved to "ethylphenol_generation_vs_IPA_concentration_panel_{catalyst}_{dpi}dpi.png"') #print success message
         
 
 if __name__ == "__main__":
-    plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 200, vertical_layout=False, catalyst = "Pt")
+    plot_fitting_results(r"vinylphenol transfer hydrogenation(data).parquet", dpi = 200, vertical_layout=False, catalyst = "Pd")
